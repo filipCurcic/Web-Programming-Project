@@ -13,7 +13,7 @@ app = Flask(__name__, static_url_path="")
 mysql = MySQL(cursorclass=pymysql.cursors.DictCursor)
 
 app.secret_key = "SECRET_KEY"
-UPLOAD_FOLDER = '/path/to/the/uploads'
+UPLOAD_FOLDER = '/images'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -114,6 +114,8 @@ def login():
     
     return flask.jsonify(session["user"])
 
+
+@app.route('/upload', methods=["POST"])
 def upload_file():
     if request.method == 'POST':
         # check if the post request has the file part
