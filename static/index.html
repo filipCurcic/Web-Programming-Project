@@ -1,97 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+<head>
 
-    <meta charset="utf-8">
+  <meta charset="utf-8">
 
-    <title>Project Movie Database</title>
+  <title>Project Movie Database</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="css/main.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="css/main.css" rel="stylesheet">
 
-  </head>
+</head>
 
-  <body ng-app="Aplikacija">
-    <header>
-      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-          <a class="navbar-brand" href="http://localhost">PMDB</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+<body ng-app="Aplikacija">
+  <header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <a class="navbar-brand" href="http://localhost">PMDB</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
+        aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                  <a class="nav-link" href="topRated.html">Top Rated <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="mostPopular.html">Most Popular <span class="sr-only">(current)</span></a>
-                  </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="register.html">Register</a>
-                </li>
-               
-              </ul>
-              <form class="form-inline mt-2 mt-md-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" id="movSearch">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-              </form>
-            </div>
-      </nav>
-    </header>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="topRated.html">Top Rated <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="mostPopular.html">Most Popular <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="register.html">Register</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="login.html">Login</a>
+          </li>
 
-    <main role="main">
-      
-        <section class="jumbotron text-center">
-          <div class="container">
-            <h1 class="jumbotron-heading">Album example</h1>
-              
-                <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.</p>
-              
-            </div>
-          </section>
-      
-          <div class="album text-muted">
-            <div class="container">
-              <div class="row">
-                <div ng-controller="ctrl as lv" style="width:100%">
-                  <div ng-repeat="film in lv.filmovi">
-                    <div class="card" style="padding-top:20px; padding-left:20px; padding-bottom:20px; padding-bottom:20px; ">
-                      <img ng-src="images/{{film.poster_path}}" style="height: 330px; width: 100%;">
-                        <h4>{{film.title | limitTo: 25 }}{{film.title.length > 25 ? '..' : ''}}</h4>
-                          <p class="card-text">{{ film.desc | limitTo: 80 }}{{film.desc.length > 80 ? '...' : ''}}</p>
-                          </div>  
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+          <li class="nav-item active">
+            <a class="nav-link" href="newMovie.html">Add movie</a>
+          </li>
+        </ul>
+
+        
+        
+        <form class="form-inline mt-2 mt-md-0">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" id="movSearch">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        </div>
+    </nav>
+  </header>
 
 
-    </main>
+  <main role="main">
 
-    <footer class="footer">
+    <section class="jumbotron text-center">
       <div class="container">
-        <span class="text-muted">© Filip Curcic 2018.</span>
+        <h1 class="jumbotron-heading">Album example</h1>
+
+
+        <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but
+          not too short so folks don't simply skip over it entirely.</p>
+
       </div>
-    </footer>
+    </section>
+
+    <div class="album text-muted">
+      <div class="container">
+        <div class="row">
+          <div ng-controller="ctrl as lv" style="width:100%">
+            <div ng-repeat="film in lv.filmovi">
+              <div class="card" style="padding-top:20px; padding-left:20px; padding-bottom:20px; padding-bottom:20px; ">
+                <img ng-src="images/{{film.poster_path}}" style="height: 330px; width: 100%;">
+                <h4>{{film.title | limitTo: 25 }}{{film.title.length > 25 ? '..' : ''}}</h4>
+                <p class="card-text">{{ film.desc | limitTo: 80 }}{{film.desc.length > 80 ? '...' : ''}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
-    
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="js/jquery/jquery.min.js"></script>
-    <script src="js/bootstrap/bootstrap.bundle.min.js"></script>
-    <script src="js/jquery/jquery-3.2.1.min.js"></script>
-    <script src="js/popper.js/popper.min.js"></script>
 
-    <script src="js/angularjs/angular.min.js"></script>
-    <script src="app/app.js"></script>
-    <script src="app/filmovi/filmovi.js"></script>
+  </main>
 
-  </body>
+  <footer class="footer">
+    <div class="container">
+      <span class="text-muted">© Filip Curcic 2018.</span>
+    </div>
+  </footer>
+
+
+
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="js/jquery/jquery.min.js"></script>
+  <script src="js/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="js/jquery/jquery-3.2.1.min.js"></script>
+  <script src="js/popper.js/popper.min.js"></script>
+
+  <script src="js/angularjs/angular.min.js"></script>
+  <script src="app/app.js"></script>
+  <script src="app/filmovi/filmovi.js"></script>
+
+</body>
 
 </html>
