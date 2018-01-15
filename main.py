@@ -79,6 +79,14 @@ def getDirectors():
 
     return flask.jsonify(rows)
 
+@app.route("/users", methods=["GET"])
+def getUsers():
+    cursor = mysql.get_db().cursor()
+    cursor.execute("SELECT * FROM user INNER JOIN person ON user.person_idperson = person.idperson")
+    rows = cursor.fetchall()
+
+    return flask.jsonify(rows)
+
 
 @app.route('/register', methods=["POST"])
 def registration():
@@ -116,20 +124,27 @@ def login():
 
 
 @app.route('/upload', methods=["POST"])
-def upload_file():
-    if request.method == 'POST':
-        # check if the post request has the file part
-        if 'file' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
-        file = request.files['file']
-        # if user does not select file, browser also
-        # submit a empty part without filename
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['/images'], filename))
+def newMovie():
+    db = mysql.get_db()
+   
+
+    movie_title = request.form['title']
+    movie_description = request.form['description']
+    movie_runtime = int(request.form['runtime'])
+    movie_release = int(request.form['release'])
+    movie_actors = request.form.getlist('actor')
+    movie_directors = request.form.getlist('directors')
+
+    cursor = mysql.get_db().cursor()
+    query1 = '''INSERT INTO movie_person(role_idrole, person_idperson, movie_idmovie) VALUES(%s,%s,%s)'''
+
+    
+    for i in movie_actors:
+        
+        cursor.execute(query1,(i['role_idrole'], i['person_idperson'], cursor.lastrowid))
+        
+
+    db.commit()
+    return flask.jsonify({"status": "done"}), 201
     
 app.run("0.0.0.0", 80, threaded=True)

@@ -14,6 +14,11 @@
         lv.selecteedActor =[];
         lv.directors = [];
         lv.selectedDirector = [];
+        lv.users = [];
+        lv.sorted = "first_name";
+        lv.reverseSort = false;
+
+        lv.clicked = 0;
 
         lv.dobaviFilmove = function() {
             $http.get("/filmovi").then(function(response) {      
@@ -67,6 +72,27 @@
                 console.log(reason);
             });
         }
+        lv.getUsers = function() {
+            $http.get("/users").then(function(response) {      
+                lv.users = response.data;
+            }, function(reason) {
+                console.log(reason);
+            });
+        }
+
+        lv.sortUsers = function(sortParameter) {
+                lv.reverseSort = (lv.sorted == sortParameter) ? !lv.reverseSort : false;
+                lv.sorted = sortParameter;
+        }
+        lv.getSortClass = function(sortParameter) {
+            if(lv.sorted == sortParameter) {
+                return lv.reverseSort ? 'arrow-down' : 'arrow-up'
+            }
+            return '';
+        }   
+
+        
+        
 
 
         lv.dobaviRatings();
@@ -74,5 +100,7 @@
         lv.najPop();
         lv.dobaviLjude();
         lv.getDirectors();
+        lv.getUsers();
+        
     });
 })(angular);
