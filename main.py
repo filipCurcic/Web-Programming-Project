@@ -146,5 +146,15 @@ def newMovie():
 
     db.commit()
     return flask.jsonify({"status": "done"}), 201
+
+@app.route("/users/<int:iduser>", methods=["DELETE"])
+def ukloni_korisnika(iduser):
+
+    db = mysql.get_db()
+    cursor = db.cursor()
+    cursor.execute("DELETE FROM user WHERE iduser=%s", (iduser, ))
+    db.commit()
+
+    return ""
     
 app.run("0.0.0.0", 80, threaded=True)

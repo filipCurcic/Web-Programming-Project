@@ -88,10 +88,11 @@
             </thead>
             <tbody>
                 <tr ng-repeat="user in lv.users | orderBy:lv.sorted:lv.reverseSort">
-                    <td>{{user.first_name }}</td>
+                    <td>{{user.first_name}} </td>
                     <td>{{user.last_name}}</td>
                     <td>{{user.email}}</td>
                     <td>{{user.username}}</td>
+                    <td><button ng-click="lv.ukloni(user.iduser)">Delete user</button></td>
                     
                     
                 </tr>

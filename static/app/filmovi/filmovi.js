@@ -91,6 +91,16 @@
             return '';
         }   
 
+        lv.ukloni = function(id) {
+            $http.delete("/users/"+id).then(function(response){
+                lv.getUsers();
+            },
+            function(reason){
+                
+                console.log(reason)
+            });
+        };
+
         
         
 
