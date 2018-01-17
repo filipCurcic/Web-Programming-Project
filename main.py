@@ -23,7 +23,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 app.config["MYSQL_DATABASE_USER"] = "root"
 app.config["MYSQL_DATABASE_PASSWORD"] = "filipcurcic1997"
-app.config["MYSQL_DATABASE_DB"] = "movies_db"
+app.config["MYSQL_DATABASE_DB"] = "web_programming_new_db"
 app.config["MYSQL_DATABASE_HOST"] = "localhost"
 
 mysql.init_app(app)
@@ -65,7 +65,7 @@ def popular():
 def getActors():
 
     cursor = mysql.get_db().cursor()
-    cursor.execute("SELECT * FROM movie_person INNER JOIN person ON movie_person.person_idperson = person.idperson")
+    cursor.execute("SELECT * FROM movie_person INNER JOIN person ON movie_person.person_idperson = person.idperson WHERE movie_person.role_name='ACTOR'")
     rows = cursor.fetchall()
 
     return flask.jsonify(rows)
@@ -74,7 +74,7 @@ def getActors():
 def getDirectors():
 
     cursor = mysql.get_db().cursor()
-    cursor.execute("SELECT * FROM movie_person INNER JOIN person ON movie_person.person_idperson = person.idperson WHERE role_idrole=2")
+    cursor.execute("SELECT * FROM movie_person INNER JOIN person ON movie_person.person_idperson = person.idperson WHERE movie_person.role_name='DIRECTOR'")
     rows = cursor.fetchall()
 
     return flask.jsonify(rows)
@@ -83,6 +83,15 @@ def getDirectors():
 def getUsers():
     cursor = mysql.get_db().cursor()
     cursor.execute("SELECT * FROM user INNER JOIN person ON user.person_idperson = person.idperson")
+    rows = cursor.fetchall()
+
+    return flask.jsonify(rows)
+
+
+@app.route("/loggedIn", methods=["GET"])
+def getLoggedIn():
+    cursor = mysql.get_db().cursor()
+    cursor.execute("SELECT * FROM authentication INNER JOIN user ON authentication.user_iduser = user.iduser")
     rows = cursor.fetchall()
 
     return flask.jsonify(rows)
@@ -116,10 +125,14 @@ def login():
     cursor.execute("SELECT * FROM user WHERE username=%s AND password=%s", (login_user["username"], login_user["password"]))
     user = cursor.fetchone()
     if user is not None:
+        
+        q = '''INSERT INTO authentication(user_iduser) VALUES(%s)'''
+        cursor.execute(q, (user['iduser']))
+        db.commit()
+        print("Success")
+        print(user['iduser'])
         session["user"] = user
-
-
-    
+        
     return flask.jsonify(session["user"])
 
 
@@ -130,18 +143,18 @@ def newMovie():
 
     movie_title = request.form['title']
     movie_description = request.form['description']
-    movie_runtime = int(request.form['runtime'])
-    movie_release = int(request.form['release'])
+    movie_runtime = request.form['runtime']
+    movie_release = request.form['release']
     movie_actors = request.form.getlist('actor')
     movie_directors = request.form.getlist('directors')
 
     cursor = mysql.get_db().cursor()
-    query1 = '''INSERT INTO movie_person(role_idrole, person_idperson, movie_idmovie) VALUES(%s,%s,%s)'''
+    query = '''INSERT INTO movie(movie.title, movie.desc, movie.runtime, movie.release) VALUES(%s, %s, %s, %s)'''
+    query1 = '''INSERT INTO movie_person(movie_person.role_name, movie_person.movie_idmovie, movie_person.person_idperson) VALUES(%s,%s,%s)'''
 
-    
+    cursor.execute(query,(movie_title, movie_description, movie_runtime, movie_release))
     for i in movie_actors:
-        
-        cursor.execute(query1,(i['role_idrole'], i['person_idperson'], cursor.lastrowid))
+        cursor.execute(query1,(i["role_idrole"], i["person_idperson"] ,cursor.lastrowid))
         
 
     db.commit()
@@ -163,9 +176,27 @@ def ukloni_film(idmovie):
 
     db = mysql.get_db()
     cursor = db.cursor()
+    cursor.execute("DELETE FROM movie_genre WHERE movie_idmovie=%s", (idmovie, ))
+    cursor.execute("DELETE FROM movie_person WHERE movie_idmovie=%s", (idmovie, ))
+    cursor.execute("DELETE FROM watchilist WHERE movie.idmovie=%s", (idmovie, ))
     cursor.execute("DELETE FROM movie WHERE idmovie=%s", (idmovie, ))
+    
     db.commit()
 
     return ""
 
+
+@app.route("/filmovi/<int:idmovie>", methods=["PUT"])
+def izmeni_film(idmovie):
+    data = request.json
+    db = mysql.get_db()
+    cursor = db.cursor()
+    q = '''UPDATE movie SET movie.title=%s, movie.desc=%s, movie.runtime=%s,
+    movie.release=%s, movie.poster_path=%s WHERE movie.idmovie=%s'''
+    
+    cursor.execute(q, (data["title"], data["desc"], data["runtime"],
+                       data["release"], data["poster_path"], idmovie))
+
+    db.commit()
+    return ""
 app.run("0.0.0.0", 80, threaded=True)
