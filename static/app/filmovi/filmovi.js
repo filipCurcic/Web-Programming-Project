@@ -17,7 +17,8 @@
         lv.users = [];
         lv.sorted = "first_name";
         lv.reverseSort = false;
-
+        lv.reverseMovieSort = false;
+        lv.sortedMovie = "title";
         lv.clicked = 0;
 
         lv.dobaviFilmove = function() {
@@ -101,6 +102,26 @@
             });
         };
 
+        lv.sortMovies = function(sortParameter) {
+            lv.reverseMovieSort = (lv.sortedMovie == sortParameter) ? !lv.reverseMovieSort : false;
+            lv.sortedMovie = sortParameter;
+        }
+        lv.getMovieSortClass = function(sortParameter) {
+            if(lv.sosortedMovierted == sortParameter) {
+                return lv.reverseMovieSort ? 'arrow-down' : 'arrow-up'
+            }
+            return '';
+        }
+
+        lv.ukloniFilm = function(idmovie) {
+            $http.delete("/filmovi/"+idmovie).then(function(response){
+                lv.dobaviFilmove();
+            },
+            function(reason){
+                
+                console.log(reason)
+            });
+        };
         
         
 

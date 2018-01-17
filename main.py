@@ -157,4 +157,15 @@ def ukloni_korisnika(iduser):
 
     return ""
     
+
+@app.route("/filmovi/<int:idmovie>", methods=["DELETE"])
+def ukloni_film(idmovie):
+
+    db = mysql.get_db()
+    cursor = db.cursor()
+    cursor.execute("DELETE FROM movie WHERE idmovie=%s", (idmovie, ))
+    db.commit()
+
+    return ""
+
 app.run("0.0.0.0", 80, threaded=True)
