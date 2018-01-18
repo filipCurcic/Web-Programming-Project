@@ -83,6 +83,7 @@
             $http.get("/filmovi/"+idmovie).then(function(response){
                 lv.film = response.data;
                 localStorage.setItem("movie", JSON.stringify(lv.film));
+                
                 window.location.replace('movieView.html');  
             },
             function(reason){
@@ -93,6 +94,7 @@
             $http.get("/moviesActors/"+idmovie).then(function(response) {      
                 lv.moviesactors = response.data;
                 localStorage.setItem("actors", JSON.stringify(lv.moviesactors));
+                
             }, function(reason) {
                 console.log(reason);
             });

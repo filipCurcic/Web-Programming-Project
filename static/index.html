@@ -80,7 +80,7 @@
             <div ng-repeat="film in lv.filmovi">
               <div class="card" style="padding-top:20px; padding-left:20px; padding-bottom:20px; padding-bottom:20px; ">
                 <img ng-src="images/{{film.poster_path}}" style="height: 330px; width: 100%;">
-                <h4><a id="movieTitle" ng-click="lv.getMovie(film.idmovie)">{{film.title | limitTo: 25 }}{{film.title.length > 25 ? '..' : ''}}</a></h4>
+                <h4><a id="movieTitle" ng-click="lv.getMovie(film.idmovie); lv.dobaviGlumce(film.idmovie)">{{film.title | limitTo: 25 }}{{film.title.length > 25 ? '..' : ''}}</a></h4>
                 <p class="card-text">{{ film.desc | limitTo: 80 }}{{film.desc.length > 80 ? '...' : ''}}</p>
               </div>
             </div>

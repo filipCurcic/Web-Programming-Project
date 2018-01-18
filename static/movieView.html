@@ -97,10 +97,11 @@
                               <p class="card-text">{{lv.storedMovie.desc}}</p>
                               <h5>Starring:</h5>
                               <div ng-repeat="actor in lv.storedActors | filter: { role_name: 'ACTOR' }:true">
-                                  
                                   <p>{{actor.first_name}} {{actor.last_name}}</p>
                               </div>
-
+                              <h6>Directed by:</h6>
+                              <div ng-repeat="actor in lv.storedActors | filter: { role_name: 'DIRECTOR' }:true">
+                                <p>{{actor.first_name}} {{actor.last_name}}</p>
                             </div>
                           </div>
                           <!-- /.card -->
