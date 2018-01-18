@@ -50,9 +50,7 @@
 
         <section class="jumbotron text-center">
             <div class="container">
-                <h1 class="jumbotron-heading">Album example</h1>
-
-
+                <h1 class="jumbotron-heading text-muted">Album example</h1>
                 <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and
                     sweet, but not too short so folks don't simply skip over it entirely.</p>
 
@@ -61,27 +59,30 @@
 
 
 
-    
+    <div class="container">
+    <div id="login">
+
     <div ng-controller="ctrl as lv">
         <form class="form-signin" name- "sign_in" ng-submit="lv.checkLogin()">
-            <label for="inputUsername">Username</label>
+            <label class="text-muted"  for="inputUsername">Username</label>
             <input type="text" id="username" class="form-control" placeholder="Username" autofocus="" ng-model="lv.username">
-            <label for="inputPassword">Password</label>
+            <label class="text-muted" for="inputPassword">Password</label>
             <input type="password" id="password" class="form-control" placeholder="Password" style="margin-bottom:25px" ng-model="lv.password">
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+            <button class="btn btn-lg btn-default btn-block" type="submit">Sign in</button>
         </form>
     </div>
-
+</div>
+</div>
 
 
 
     </main>
 
     <footer class="footer">
-        <div class="container">
-            <span class="text-muted">© Filip Curcic 2018.</span>
-        </div>
-    </footer>
+            <div class="container">
+              <span class="text-muted">Place sticky footer content here.</span>
+            </div>
+          </footer>
 
 
 

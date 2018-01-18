@@ -56,7 +56,7 @@
 
         <section class="jumbotron text-center">
             <div class="container">
-                <h1 class="jumbotron-heading">Album example</h1>
+                <h1 class="jumbotron-heading" class="text-muted">Album example</h1>
 
 
                 <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and
@@ -67,42 +67,48 @@
 
         <div ng-controller="ctrl as lv">
             <div class="container">
-                <h2>Add a new Movie</h2>
+                <h2 class="text-muted">Add a new Movie</h2>
                 <form method="post" action="/upload">
                     <div class="form-group">
-                        <label for="title">Movie Title:</label>
+                        <label for="title" class="text-muted">Movie Title:</label>
                         <input type="text" class="form-control" id="title" placeholder="Enter title" name="title" ng-required="true">
                     </div>
                     <div class="form-group">
-                        <label for="pwd">Description:</label>
+                        <label for="pwd" class="text-muted">Description:</label>
                         <textarea class="form-control" id="description" placeholder="Enter description" name="description" ng-required="true"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="runtime">Runtime:</label>
+                        <label for="runtime" class="text-muted">Runtime:</label>
                         <input type="number" class="form-control" id="runtime" placeholder="Enter runtime" name="runtime" ng-required="true">
                     </div>
                     <div class="form-group">
-                        <label for="release">Year of Release:</label>
+                        <label for="release" class="text-muted">Year of Release:</label>
                         <input type="number" class="form-control" id="release" placeholder="Enter release year" name="release" ng-required="true">
                     </div>
                     <div class="form-group">
-                        <label for="actorChoice">Select actors</label>
+                        <label for="actorChoice" class="text-muted">Select actors</label>
                         <select class="form-control" multiple="multiple" name="actor" id="actor" ng-options="actor as actor.first_name + ' ' + actor.last_name for actor in lv.people"
                             ng-model="lv.selectedActor" ng-required="true"></select> {{lv.selectedActor}}
                     </div>
                     <div class="form-group">
-                        <label for="directorChoice">Select a director</label>
+                        <label for="directorChoice" class="text-muted">Select a director</label>
                         <select class="form-control" name="director" id="director" ng-options="director as director.first_name + ' ' + director.last_name for director in lv.directors"
                             ng-model="lv.selectedDirector" ng-required="true"></select> {{lv.selectedDirector}}
                     </div>
-                    <button class="btn btn-default">Submit</button>
+                    <button class="btn btn-danger">Submit</button>
                 </form>
             </div>
         </div>
     </main>
 
-    
-    
+
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted">Place sticky footer content here.</span>
+        </div>
+    </footer>
+
+
 
 
 

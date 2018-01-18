@@ -25,28 +25,30 @@
           </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="topRated.html">Top Rated <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="mostPopular.html">Most Popular <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="register.html">Register</a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="login.html">Login</a>
-          </li>
-
-          <li class="nav-item active">
-            <a class="nav-link" href="newMovie.html">Add movie</a>
-          </li>
-
-          <li class="nav-item active">
-            <a class="nav-link" href="newMovie.html">View users</a>
-          </li>
-
-        </ul>
+            <li class="nav-item active">
+                <a class="nav-link" href="topRated.html">Top Rated <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="mostPopular.html">Most Popular <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="register.html">Register</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="login.html">Login</a>
+              </li>
+    
+              <li class="nav-item active">
+                <a class="nav-link" href="newMovie.html">Add movie</a>
+              </li>
+    
+              <li class="nav-item active">
+                <a class="nav-link" href="users.html">View users</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="viewMovies.html">View movies</a>
+              </li>
+            </ul>
 
 
 
@@ -79,23 +81,23 @@
 
           <thead>
             <tr>
-              <th><a href="#" ng-click="lv.sortMovies('title')">Title<div ng-class="lv.getMovieSortClass('title')"></div></a></th>
-              <th><a href="#" ng-click="lv.sortMovies('desc')">Description<div ng-class="lv.getMovieSortClass('desc')"></div></a></th>
-              <th><a href="#" ng-click="lv.sortMovies('runtime')">Runtime<div ng-class="lv.getMovieSortClass('runtime')"></div></a></th>
-              <th><a href="#" ng-click="lv.sortMovies('release')">Release<div ng-class="lv.getMovieSortClass('release')"></div></a></th>
-              <th><a href="#" ng-click="lv.sortMovies('vote_count')">Vote count<div ng-class="lv.getMovieSortClass('vote_count')"></div></a></th>
-              <th><a href="#" ng-click="lv.sortMovies('votes')">Average rating<div ng-class="lv.getMovieSortClass('votes')"></div></a></th>
+              <th><a  class="text-muted" href="#" ng-click="lv.sortMovies('title')">Title<div ng-class="lv.getMovieSortClass('title')"></div></a></th>
+              <th><a class="text-muted" href="#" ng-click="lv.sortMovies('desc')">Description<div ng-class="lv.getMovieSortClass('desc')"></div></a></th>
+              <th><a class="text-muted" href="#" ng-click="lv.sortMovies('runtime')">Runtime<div ng-class="lv.getMovieSortClass('runtime')"></div></a></th>
+              <th><a class="text-muted" href="#" ng-click="lv.sortMovies('release')">Release<div ng-class="lv.getMovieSortClass('release')"></div></a></th>
+              <th><a class="text-muted" href="#" ng-click="lv.sortMovies('vote_count')">Votes<div ng-class="lv.getMovieSortClass('vote_count')"></div></a></th>
+              <th><a class="text-muted" href="#" ng-click="lv.sortMovies('votes')">Rating<div ng-class="lv.getMovieSortClass('votes')"></div></a></th>
 
             </tr>
           </thead>
           <tbody>
             <tr ng-repeat="film in lv.filmovi | orderBy:lv.sortedMovie:lv.reverseMovieSort">
-              <td>{{film.title}} </td>
-              <td>{{film.desc}}</td>
-              <td>{{film.runtime}}min</td>
-              <td>{{film.release}}</td>
-              <td>{{film.vote_count}}</td>
-              <td>{{film.avg_vote}}</td>
+              <td class="text-muted">{{film.title}} </td>
+              <td class="text-muted">{{film.desc}}</td>
+              <td class="text-muted">{{film.runtime}}min</td>
+              <td class="text-muted">{{film.release}}</td>
+              <td class="text-muted">{{film.vote_count}}</td>
+              <td class="text-muted">{{film.avg_vote}}</td>
               <td><button type="button" class="btn btn-danger" ng-click="lv.ukloniFilm(film.idmovie)">Delete movie</button></td>
               <td><button class="btn btn-primary" ng-click="lv.pripremiZaIzmenu(film)">Edit movie</button></td>
 
@@ -143,10 +145,10 @@
   </main>
 
   <footer class="footer">
-    <div class="container">
-      <span class="text-muted">© Filip Curcic 2018.</span>
-    </div>
-  </footer>
+      <div class="container">
+        <span class="text-muted">Place sticky footer content here.</span>
+      </div>
+    </footer>
 
 
 

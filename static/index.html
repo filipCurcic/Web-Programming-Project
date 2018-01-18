@@ -46,7 +46,7 @@
             <a class="nav-link" href="users.html">View users</a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="viewMovies.html">view movies</a>
+            <a class="nav-link" href="viewMovies.html">View movies</a>
           </li>
         </ul>
 
@@ -57,14 +57,15 @@
         </form>
     </nav>
   </header>
-  
 
 
-  <main role="main">
+
+ 
 
     <section class="jumbotron text-center">
       <div class="container">
-        <h1 class="jumbotron-heading">Album example</h1>
+
+        <h1 class="jumbotron-heading text-muted">Project Movie Database</h1>
 
 
         <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but
@@ -72,31 +73,27 @@
 
       </div>
     </section>
+    <div class="container">
+      <div class="movieContainer">
 
-    <div class="album text-muted">
-      <div class="container">
-        <div class="row">
-          <div style="width:100%">
-            <div ng-repeat="film in lv.filmovi">
-              <div class="card" style="padding-top:20px; padding-left:20px; padding-bottom:20px; padding-bottom:20px; ">
-                <img ng-src="images/{{film.poster_path}}" style="height: 330px; width: 100%;">
-                <h4><a id="movieTitle" ng-click="lv.getMovie(film.idmovie); lv.dobaviGlumce(film.idmovie)">{{film.title | limitTo: 25 }}{{film.title.length > 25 ? '..' : ''}}</a></h4>
-                <p class="card-text">{{ film.desc | limitTo: 80 }}{{film.desc.length > 80 ? '...' : ''}}</p>
-              </div>
+        <div class="card-group">
+          <div ng-repeat="film in lv.filmovi">
+            <div class="card">
+              <img ng-src="images/{{film.poster_path}}" style="height: 330px; width: 100%;">
+              <h4><a class="text-muted" id="movieTitle" ng-click="lv.getMovie(film.idmovie); lv.dobaviGlumce(film.idmovie)">{{film.title | limitTo: 25 }}{{film.title.length > 25 ? '..' : ''}}</a></h4>
+              <p class="card-text text-muted">{{ film.desc | limitTo: 80 }}{{film.desc.length > 80 ? '...' : ''}}</p>
             </div>
           </div>
         </div>
       </div>
     </div>
+  
 
-  </main>
-
-  <footer class="py-5 bg-dark">
-    <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
-    </div>
-  </footer>
-
+  <footer class="footer">
+      <div class="container">
+        <span class="text-muted">Place sticky footer content here.</span>
+      </div>
+    </footer>
 
 
 
