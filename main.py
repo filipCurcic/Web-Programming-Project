@@ -1,4 +1,5 @@
 import datetime
+import random, string
 import pymysql
 import flask
 from flask import Flask
@@ -40,10 +41,22 @@ def home():
 def filmovi():
 
     cursor = mysql.get_db().cursor()
-    cursor.execute("SELECT * FROM movie")
+    cursor.execute("SELECT * FROM movie ")
     rows = cursor.fetchall()
 
     return flask.jsonify(rows)
+
+@app.route("/filmovi/<int:idmovie>", methods=["GET"])
+def film(idmovie):
+
+    cursor = mysql.get_db().cursor()
+    cursor.execute("SELECT * FROM movie WHERE movie.idmovie=%s", (idmovie, ))
+    row = cursor.fetchone()
+
+
+    return flask.jsonify(row)
+
+
 @app.route("/ratings", methods=["GET"])
 def rejtinzi():
 
@@ -57,6 +70,16 @@ def popular():
 
     cursor = mysql.get_db().cursor()
     cursor.execute("SELECT movie.vote_count, movie.title, movie.poster_path, movie.avg_vote FROM movie ORDER BY movie.vote_count DESC")
+    rows = cursor.fetchall()
+
+    return flask.jsonify(rows)
+
+
+@app.route("/moviesActors/<int:idmovie>", methods=["GET"])
+def moviesActors(idmovie):
+
+    cursor = mysql.get_db().cursor()
+    cursor.execute("SELECT * from movie INNER JOIN movie_person ON movie.idmovie = movie_person.movie_idmovie INNER JOIN person ON movie_person.person_idperson = person.idperson WHERE movie.idmovie=%s ", (idmovie, ))
     rows = cursor.fetchall()
 
     return flask.jsonify(rows)
@@ -125,15 +148,25 @@ def login():
     cursor.execute("SELECT * FROM user WHERE username=%s AND password=%s", (login_user["username"], login_user["password"]))
     user = cursor.fetchone()
     if user is not None:
-        
-        q = '''INSERT INTO authentication(user_iduser) VALUES(%s)'''
-        cursor.execute(q, (user['iduser']))
+        x = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(32))
+        q = '''INSERT INTO authentication(user_iduser, token) VALUES(%s, %s)'''
+        cursor.execute(q, (user['iduser'], x))
         db.commit()
-        print("Success")
-        print(user['iduser'])
         session["user"] = user
+        loginAuth()
+        
         
     return flask.jsonify(session["user"])
+
+@app.route('/loginAuth', methods=["POST"])
+def loginAuth():
+    login_user = request.json
+    db = mysql.get_db()
+    cursor = mysql.get_db().cursor()
+    cursor.execute("SELECT * FROM user WHERE username=%s AND password=%s", (login_user["username"], login_user["password"]))
+    user = cursor.fetchone()
+    cursor.execute("SELECT token FROM authentication WHERE user_iduser=%s", (user["iduser"]))
+    tempdb = cursor.fetchone()
 
 
 @app.route('/upload', methods=["POST"])

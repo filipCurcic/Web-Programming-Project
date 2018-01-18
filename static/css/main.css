@@ -208,3 +208,9 @@ code {
   border-top: 10px solid black;
 
 }
+
+#movieTitle:hover {
+  background-color: #EEE7E7;
+  cursor: pointer;
+  
+}

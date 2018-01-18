@@ -23,6 +23,11 @@
         lv.zaIzmenu = {};
         lv.zaIzmenuBool = false;
         lv.loggedin = [];
+        lv.film = {};
+        lv.storedMovie = {};
+        lv.storedActors = [];
+        lv.header = true;
+        lv.moviesactors = [];
 
         lv.dobaviFilmove = function() {
             $http.get("/filmovi").then(function(response) {      
@@ -31,7 +36,7 @@
                 console.log(reason);
             });
         }
-
+        
 
         lv.dobaviRatings = function() {
             $http.get("/ratings").then(function(response) {      
@@ -50,19 +55,67 @@
             });
         }
         
+        lv.saveToken = function() {
+            $http.get("/loginAuth").then(function(response) {      
+                var tempToken;
+                tempToken = response.data;
+                console.log(tempToken);
+            }, function(reason) {
+                console.log(reason);
+            });
+        }
+        lv.hideHeader = function() {
+            lv.header = false;
+            
+        }
+        
+
+        lv.getStoredMovie = function() {
+            lv.storedMovie = JSON.parse(localStorage.getItem("movie"));
+            
+        }
+        lv.getStoredActors = function() {
+            lv.storedActors = JSON.parse(localStorage.getItem("actors"));
+            
+        }
+
+        lv.getMovie = function(idmovie) {
+            $http.get("/filmovi/"+idmovie).then(function(response){
+                lv.film = response.data;
+                localStorage.setItem("movie", JSON.stringify(lv.film));
+                window.location.replace('movieView.html');  
+            },
+            function(reason){
+                console.log(reason)
+            });
+        };
+        lv.dobaviGlumce = function(idmovie) {
+            $http.get("/moviesActors/"+idmovie).then(function(response) {      
+                lv.moviesactors = response.data;
+                localStorage.setItem("actors", JSON.stringify(lv.moviesactors));
+            }, function(reason) {
+                console.log(reason);
+            });
+        }
+
+        
 
 
         lv.checkLogin = function () {
             $http.post("/login", {"username": lv.username, "password": lv.password}).then(function (response) {
                 lv.loggedin = response.data;
                 console.log(lv.loggedin);
+                lv.saveToken();
                 alert("You have succefully logged in");
                 window.location.replace('/');
+                
                 
             }, function (reason) {
                 alert("You have entered an incorrect username or password!")
             });
         }
+        
+        
 
 
 
@@ -189,6 +242,22 @@
                 console.log(reason)
             });
         };
+        /*var modal = document.getElementById('myModal');
+        var img = document.getElementById('myImg');
+        var modalImg = document.getElementById("img01");
+        var captionText = document.getElementById("caption");
+        img.onclick = function(){
+            modal.style.display = "block";
+            modalImg.src = this.src;
+            captionText.innerHTML = this.alt;
+            headerShow = false;
+        }
+        var span = document.getElementsByClassName("close")[0];
+        span.onclick = function() { 
+            modal.style.display = "none";
+            lv.header = true;
+            alert(lv.header);
+        }*/
         
 
 
@@ -199,6 +268,8 @@
         lv.getDirectors();
         lv.getUsers();
         lv.getLoggedIn();
+        lv.getStoredMovie();
+        lv.getStoredActors();
         
     });
 })(angular);
