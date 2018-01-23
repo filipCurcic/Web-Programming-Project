@@ -1,0 +1,16 @@
+<table class="table table-striped table-hover tabelaRating">
+    <thead>
+        <tr>
+            
+            <th class="text-muted">Rank and Title</th>
+            <th class="text-muted">Rating</th>
+        
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="rating in lv.ratings track by $index">
+            <td> <img ng-src="images/{{rating.poster_path}}" style="width:52px; height:72px;" >  <span class="text-muted">{{$index +1}}. <a ui-sref="movie({idmovie: rating.idmovie})">{{rating.title}}</a></span></td>
+            <td> <img ng-src="images/str.ico" style="width:13px; height:13px"><span class="text-muted"> {{rating.avg_vote}} </span> </td>
+        </tr>
+    </tbody>
+</table>

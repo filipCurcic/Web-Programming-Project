@@ -28,3 +28,55 @@ body {
   float:left;
   display: inline-block;
   border: 1px black;
+
+}
+#movieContainer {
+
+  border: 1px solid #3F3F3F;
+  border-radius: 10px;
+  margin: 5px;
+  width: 70%;
+  height: 100%;
+  margin: 0 auto;
+  background-image: url("stardust.png");
+  background-color: #575757
+
+}
+#flexContainer {
+  display: flex;
+  padding: 5px;
+  
+}
+
+#moviePersonel {
+  display: flex;
+  
+
+}
+
+
+
+#movieDirector {
+  margin-left: 35px;
+}
+
+#movieDetails{
+  width: 300px;
+  height: 200px;
+  margin: 30px;
+  padding: 5px;
+}
+
+#userReviewsLabel {
+  border: 0.5px solid #646262;
+  border-radius: 1px;
+  padding-top: 10px;  
+  padding-bottom: 10px;
+  
+  
+}
+
+#userReviews {
+  border: 0.5px solid #646262;
+  border-radius: 1px;
+}

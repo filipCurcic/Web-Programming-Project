@@ -1,0 +1,11 @@
+<div class="movieContainer">
+    <div class="card-group">
+        <div ng-repeat="film in lv.movies | filter: searchInput">
+            <div class="card">
+                <img ng-src="images/{{film.poster_path}}" style="height: 330px; width: 100%;">
+                <h4><a class="text-muted" id="movieTitle" ui-sref="movie({idmovie: film.idmovie})">{{film.title | limitTo: 25 }}{{film.title.length > 25 ? '..' : ''}}</a></h4>
+                <p class="card-text text-muted">{{ film.desc | limitTo: 80 }}{{film.desc.length > 80 ? '...' : ''}}</p>
+            </div>
+        </div>
+    </div>
+</div>

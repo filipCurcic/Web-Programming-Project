@@ -10,6 +10,10 @@ body {
   padding: 0px;
   
 }
+#main {
+  overflow: auto;
+  padding-bottom: 100px;
+}
 
 .card {
   background-image: url("stardust.png");
@@ -18,19 +22,28 @@ body {
 .jumbotron {
   background-image: url("tweed.png");
 }
-
+.movie_sort_button {
+  cursor: pointer;
+}
+.movie_sort_button:hover {
+  background-color: #383838;
+}
+.tabelaRating {
+  background-color: #3F3F3F
+  
+}
 .footer {
-  position:fixed;
+  position:relative;
   left:0px;  
+  clear: both;
   bottom: 0;
   width: 100%;
-  /* Set the fixed height of the footer here */
-  line-height: 30px; /* Vertically center the text there */
   background-image: url("tweed.png");
 }
 .movieContainer {
   
   width: 1000px;
+  margin: 0 auto;
 
   
 }
@@ -49,7 +62,6 @@ body {
 body > .container {
   padding: 60px 15px 0;
   padding-bottom:20px;
-  overflow:hidden;
   height: 100%;
   position: relative
 }

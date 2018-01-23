@@ -1,0 +1,63 @@
+<table class="table table-striped table-hover">
+    
+              <thead>
+                <tr>
+                  <th class="movie_sort_button"><div class="text-muted " ng-click="lv.sortMovies('title')">Title<div ng-class="lv.getMovieSortClass('title')"></div></div></th>
+                  <th class="movie_sort_button"><div class="text-muted " ng-click="lv.sortMovies('desc')">Description<div ng-class="lv.getMovieSortClass('desc')"></div></div></th>
+                  <th class="movie_sort_button"><div class="text-muted " ng-click="lv.sortMovies('runtime')">Runtime<div ng-class="lv.getMovieSortClass('runtime')"></div></diva></th>
+                  <th class="movie_sort_button"><div class="text-muted " ng-click="lv.sortMovies('release')">Release<div ng-class="lv.getMovieSortClass('release')"></div></div></th>
+                  <th class="movie_sort_button"><div class="text-muted " ng-click="lv.sortMovies('vote_count')">Votes<div ng-class="lv.getMovieSortClass('vote_count')"></div></div></th>
+                  <th class="movie_sort_button"><div class="text-muted " ng-click="lv.sortMovies('votes')">Rating<div ng-class="lv.getMovieSortClass('votes')"></div></div></th>
+    
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="film in lv.movies | orderBy:lv.sortedMovie:lv.reverseMovieSort">
+                  <td class="text-muted">{{film.title}} </td>
+                  <td class="text-muted">{{film.desc}}</td>
+                  <td class="text-muted">{{film.runtime}}min</td>
+                  <td class="text-muted">{{film.release}}</td>
+                  <td class="text-muted">{{film.vote_count}}</td>
+                  <td class="text-muted">{{film.avg_vote}}</td>
+                  <td><button type="button" class="btn btn-danger" ng-click="lv.removeMovie(film.idmovie)">Delete movie</button></td>
+                  <td><button class="btn btn-primary" ng-click="lv.prepForEdit(film)">Edit movie</button></td>
+    
+    
+                </tr>
+              </tbody>
+            </table>
+    
+            <div ng-show="lv.zaIzmenuBool">
+              <h1 class="text-muted">Edit movie</h1>
+              <form name="izmenaFilma" ng-submit="izmenaFilma.$valid && lv.editMovie()">
+                <div class="form-group">
+                  <label for="title" class="text-muted">Title</label>
+                  <input type="text" class="form-control" ng-class="{'is-invalid': izmenaFilma.title.$invalid}" id="title" name="title"
+                    aria-describedby="title" placeholder="Title.." ng-model="lv.zaIzmenu.title" ng-required="true">
+                </div>
+                <div class="form-group">
+                  <label for="desc" class="text-muted">Description</label>
+                  <textarea class="form-control" id="desc" name="desc" placeholder="Description.." ng-model="lv.zaIzmenu.desc"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="runtime" class="text-muted">Runtime</label>
+                  <input type="number" class="form-control" id="runtime" name="runtime" placeholder="Runtime.." ng-model="lv.zaIzmenu.runtime">
+                </div>
+                <div class="form-group">
+                  <label for="release" class="text-muted">Release</label>
+                  <input type="number" class="form-control" id="release" name="release" placeholder="Release.." ng-model="lv.zaIzmenu.release">
+                </div>
+                <div class="form-group">
+                  <label for="poster_path" class="text-muted">Poster path</label>
+                  <input type="text" class="form-control" id="poster_path" name="poster_path" placeholder="Poster path.." ng-model="lv.zaIzmenu.poster_path">
+                </div>
+                <div class="form-group">
+                  <input class="btn btn-primary" type="submit" ng-disabled="izmenaClanka.$invalid" value="Izmeni">
+                  <button class="btn btn-danger" type="button" ng-click="lv.odustaniOdIzmene()">Odustani</button>
+                </div>
+              </form>
+              <hr>
+            </div>
+    
+          </div>
+        </div>

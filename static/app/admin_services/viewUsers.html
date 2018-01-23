@@ -1,0 +1,23 @@
+<table  class="table table-striped table-hover">
+    
+<thead>
+<tr> 
+    <th class="movie_sort_button"><div class="text-muted" ng-click="lv.sortUsers('first_name')">First name<div ng-class="lv.getSortClass('first_name')"></div></div></th>
+    <th class="movie_sort_button"><div class="text-muted" ng-click="lv.sortUsers('last_name')">Last name<div ng-class="lv.getSortClass('last_name')"></div></div></th>
+    <th class="movie_sort_button"><div class="text-muted" ng-click="lv.sortUsers('email')">Email adress<div ng-class="lv.getSortClass('email')"></div></div></th>
+    <th class="movie_sort_button"><div class="text-muted" ng-click="lv.sortUsers('username')">Username<div ng-class="lv.getSortClass('username')"></div></div></th>
+
+</tr>
+</thead>
+<tbody>
+<tr ng-repeat="user in lv.users | orderBy:lv.sorted:lv.reverseSort">
+    <td class="text-muted">{{user.first_name}} </td>
+    <td class="text-muted">{{user.last_name}}</td>
+    <td class="text-muted">{{user.email}}</td>
+    <td class="text-muted">{{user.username}}</td>
+    <td><button ng-click="lv.ukloni(user.iduser)">Delete user</button></td>
+    
+    
+</tr>
+</tbody>
+</table>

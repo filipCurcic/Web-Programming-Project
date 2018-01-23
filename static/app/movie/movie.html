@@ -1,0 +1,55 @@
+<div id="movieContainer">
+    <div id="flexContainer">
+    <div id="moviePosterContainer">
+        <img ng-src="images/{{lv.movie.poster_path}}" style="height:400px; width:250px">
+    </div>
+
+    <div id="movieDetails">
+        <h4><strong><a class="text-muted" id="movieTitle">{{lv.movie.title}} ( {{lv.movie.release}} )</a></strong></h4>
+        
+        <div ng-repeat="genre in lv.genres" style="display:inline">
+            <a class="text-muted" ui-sref="moviesByGenre({idgenre: genre.idgenre})">{{genre.genre_name}}</a>   
+        </div>
+        
+        <h4><span class="text-warning">Rating: {{lv.movie.avg_vote}}/10</span></h4>
+        <small class="text-muted">Runtime: {{lv.movie.runtime}}min</small>
+        <p><strong>Description:</strong></p>
+        <p class="card-text text-muted">{{ lv.movie.desc}}</p>
+
+        <div id="moviePersonel">
+
+            <div>
+                <h5>Starring:</h5>
+                <div ng-repeat="actor in lv.movieActors | filter: { person_type: 'ACTOR' }:true" class="card-text text-muted">
+                    {{actor.first_name}} {{actor.last_name}}
+                </div>
+            </div>
+
+            <div>
+                <div id="movieDirector">
+                    <h5>Directed by:</h5>
+                    <div ng-repeat="actor in lv.movieActors | filter: { person_type: 'DIRECTOR' }:true" class="card-text text-muted">
+                        <a ui-sref="moviesByDirector({idperson: actor.idperson})" class="text-muted"> {{actor.first_name}} {{actor.last_name}} </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="userReviewsLabel">
+            <h6  class="text-muted"><span style="padding:10px;">User reviews</span></h6>
+            <div id="userReviews">
+                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.
+                        
+                        Posted by Anonymous on 3/1/17</p>
+            </div>
+        </div>
+</div>
+
+
+
+
+
+
+</div>

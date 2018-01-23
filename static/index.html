@@ -12,10 +12,12 @@
 
   <!-- Custom styles for this template -->
   <link href="css/main.css" rel="stylesheet">
+  <link href="css/movie-page.css" rel="stylesheet">
+
 
 </head>
 
-<body ng-app="Aplikacija" ng-controller="ctrl as lv">
+<body ng-app="Aplikacija">
   <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
       <a class="navbar-brand" href="http://localhost">PMDB</a>
@@ -26,74 +28,81 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="topRated.html">Top Rated <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="mostPopular.html">Most Popular <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="register.html">Register</a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="login.html">Login</a>
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                    Movies
+                  </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" ui-sref="topRated">Top Rated <span class="sr-only">(current)</span></a>
+                <a class="dropdown-item" ui-sref="mostPopular">Most Popular <span class="sr-only">(current)</span></a>
+
+              </div>
+            </div>
+
           </li>
 
           <li class="nav-item active">
-            <a class="nav-link" href="newMovie.html">Add movie</a>
-          </li>
+              <a class="nav-link" ui-sref="register">Register</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" ui-sref="login">Login</a>
+            </li>
+            
+          <li class="nav-item active">
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                    Admin options
+                  </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" ui-sref="addMovie">Add movie</a>
+                <a class="dropdown-item" ui-sref="viewUsers">View users</a>
+                <a class="dropdown-item" ui-sref="viewMovies">View movies</a>
+              </div>
+            </div>
 
-          <li class="nav-item active">
-            <a class="nav-link" href="users.html">View users</a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="viewMovies.html">View movies</a>
-          </li>
+           
         </ul>
 
 
 
         <form class="form-inline mt-2 mt-md-0">
-          <input type="text" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" id="movSearch">
+          <input ng-model="searchInput.title" type="text" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
         </form>
     </nav>
   </header>
 
 
 
- 
-
-    <section class="jumbotron text-center">
-      <div class="container">
-
-        <h1 class="jumbotron-heading text-muted">Project Movie Database</h1>
 
 
-        <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but
-          not too short so folks don't simply skip over it entirely.</p>
-
-      </div>
-    </section>
+  <section class="jumbotron text-center">
     <div class="container">
-      <div class="movieContainer">
 
-        <div class="card-group">
-          <div ng-repeat="film in lv.filmovi">
-            <div class="card">
-              <img ng-src="images/{{film.poster_path}}" style="height: 330px; width: 100%;">
-              <h4><a class="text-muted" id="movieTitle" ng-click="lv.getMovie(film.idmovie); lv.dobaviGlumce(film.idmovie)">{{film.title | limitTo: 25 }}{{film.title.length > 25 ? '..' : ''}}</a></h4>
-              <p class="card-text text-muted">{{ film.desc | limitTo: 80 }}{{film.desc.length > 80 ? '...' : ''}}</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <h1 class="jumbotron-heading text-muted">Project Movie Database</h1>
+
+
+      <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but
+        not too short so folks don't simply skip over it entirely.</p>
+
     </div>
-  
+  </section>
+
+
+  <div class="container">
+    <div id="main">
+      <ui-view></ui-view>
+    </div>
+  </div>
+
+
 
   <footer class="footer">
-      <div class="container">
-        <span class="text-muted">Place sticky footer content here.</span>
-      </div>
-    </footer>
+    <div class="container">
+      <span class="text-muted">&copy;Filip Curcic 2018.</span>
+    </div>
+  </footer>
 
 
 
@@ -104,8 +113,17 @@
   <script src="js/popper.js/popper.min.js"></script>
 
   <script src="js/angularjs/angular.min.js"></script>
+  <script src="js/angularjs-ui-router/angular-ui-router.min.js"></script>
+
   <script src="app/app.js"></script>
-  <script src="app/filmovi/filmovi.js"></script>
+  <script src="app/movies/filmovi.js"></script>
+  <script src="app/admin_services/admin_services.js"></script>
+  <script src="app/login_service/login_service.js"></script>
+  <script src="app/user_services/user_services.js"></script>
+  <script src="app/user_login/login.js"></script>
+  <script src="app/movies/movies.js"></script>
+  <script src="app/movie/movie.js"></script>
+
 
 </body>
 

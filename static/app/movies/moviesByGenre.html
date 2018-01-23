@@ -1,0 +1,14 @@
+<div class="movieContainer">
+    <div ng-repeat="genre in lv.moviesGenres|limitTo:1">
+        <h1 class="text-muted">All {{genre.genre_name}} movies</h1>
+    </div>
+    <div class="card-group">
+        <div ng-repeat="movie in lv.moviesGenres">
+            <div class="card">
+                <img ng-src="images/{{movie.poster_path}}" style="height: 330px; width: 100%;">
+                <h4><a class="text-muted" id="movieTitle" ui-sref="movie({idmovie: movie.idmovie})">{{movie.title | limitTo: 25 }}{{movie.title.length > 25 ? '..' : ''}}</a></h4>
+                <p class="card-text text-muted">{{ movie.desc | limitTo: 80 }}{{movie.desc.length > 80 ? '...' : ''}}</p>
+            </div>
+        </div>
+    </div>
+</div>
