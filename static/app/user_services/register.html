@@ -1,11 +1,11 @@
 <div class="main-login main-center">
-<form class="form-horizontal" method="post" action="/registration">
+<form class="form-horizontal" ng-submit="lv.registerUser()" method="post">
     <div class="form-group">
         <label class="text-muted" for="firstName" class="cols-sm-2 control-label">First Name</label>
         <div class="cols-sm-10">
             <div class="input-group">
                 
-                <input type="text" class="form-control" name="firstName" id="firstName"  placeholder="Enter your First Name" ng-model="lv.newPerson.first_name">
+                <input type="text" class="form-control" name="firstName" id="firstName"  placeholder="Enter your First Name" ng-model="lv.newUser.first_name">
             </div>
         </div>
     </div>
@@ -14,7 +14,7 @@
         <div class="cols-sm-10">
             <div class="input-group">
                 
-                <input type="text" class="form-control" name="lastName" id="lastName"  placeholder="Enter your Last Name" ng-model="lv.newPerson.last_name"/>
+                <input type="text" class="form-control" name="lastName" id="lastName"  placeholder="Enter your Last Name" ng-model="lv.newUser.last_name"/>
             </div>
         </div>
     </div>
@@ -22,16 +22,16 @@
     <div class="form-group">
         <label class="text-muted" for="gender" class="cols-sm-2 control-label">Gender</label>
         <div class="cols-sm-10">
-                <input type="radio" name="options" id="M" value="M" ng-model="lv.newPerson.gender"><span class="text-muted">Male</span></input><br>
-                <input type="radio" name="options" id="F" value="F" ng-model="lv.newPerson.gender"><span class="text-muted">Female</span></input><br>
+                <input type="radio" name="options" id="M" value="M" ng-model="lv.newUser.gender"><span class="text-muted">Male</span></input><br>
+                <input type="radio" name="options" id="F" value="F" ng-model="lv.newUser.gender"><span class="text-muted">Female</span></input><br>
         </div>
     </div>
 
     <div class="form-group">
-        <label class="text-muted" for="dob" class="cols-sm-2 control-label">Date of Birth</label>
+        <label class="text-muted" for="dob" class="cols-sm-2 control-label">Date of Birth in yyyy-mm-dd format</label>
         <div class="cols-sm-10">
             <div class="input-group">
-                <input type="date" class="form-control" name="date_of_birth" id="date_of_birth"  placeholder="Confirm your Password" ng-model="lv.newPerson.date_of_birth"/>
+                <input type="text" class="form-control" name="date_of_birth" id="date_of_birth"  placeholder="Confirm your Password" ng-model="lv.newUser.date_of_birth"/>
             </div>
         </div>
     </div>
@@ -66,7 +66,7 @@
         </div>
     </div>
     <div class="form-group ">
-        <button type="button" class="btn btn-primary btn-lg btn-block login-button">Register</button>
+        <button ng-click="lv.registerUser()"type="button" class="btn btn-primary btn-lg btn-block login-button">Register</button>
     </div>
 </form>
 </div>

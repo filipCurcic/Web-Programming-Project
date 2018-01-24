@@ -52,17 +52,7 @@ app.register_blueprint(login_service)
 def home():
     return app.send_static_file("index.html")
 
-
-
-
-
-
-
-
-
-
-
-@app.route("/loggedIn", methods=["GET"])
+'''@app.route("/loggedIn", methods=["GET"])
 def getLoggedIn():
     cursor = mysql.get_db().cursor()
     cursor.execute("SELECT * FROM authentication INNER JOIN user ON authentication.user_iduser = user.iduser")
@@ -79,7 +69,7 @@ def loginAuth():
     cursor.execute("SELECT * FROM user WHERE username=%s AND password=%s", (login_user["username"], login_user["password"]))
     user = cursor.fetchone()
     cursor.execute("SELECT token FROM authentication WHERE user_iduser=%s", (user["iduser"]))
-    tempdb = cursor.fetchone()
+    tempdb = cursor.fetchone()'''
 
 
 

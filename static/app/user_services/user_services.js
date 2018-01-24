@@ -4,12 +4,13 @@
         var lv = this;
 
         lv.newPerson = {
+           
+        }
+        lv.newUser = {
             "first_name": "",
             "last_name": "",
             "gender": "",
             "date_of_birth": "",
-        }
-        lv.newUser = {
             "username": "",
             "password": "",
             "email": "",
@@ -18,21 +19,21 @@
         }
 
 
-        /*lv.registerPerson = function() {
-            $http.post("/register", lv.newPerson).then(function(response){
+        lv.registerPerson = function() {
+            $http.post("/registration", lv.newPerson).then(function(response){
             },
             function(reason){
                 console.log(reason);
             })
         };
         lv.registerUser = function() {
-            $http.post("/register", lv.newUser).then(function(response){
-                
+            $http.post("/registration", lv.newUser).then(function(response){
+                alert("You have successfully registered")
             },
             function(reason){
                 console.log(reason);
             })
-        };*/
+        };
 
         
         

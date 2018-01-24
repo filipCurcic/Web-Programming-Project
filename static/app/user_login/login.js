@@ -18,11 +18,11 @@
             })
         }
 
-        /*loginService.isLoggedIn(function() {
+        loginService.isLoggedIn(function() {
             $state.go('home');
         },
         function() {
             that.showLogin = true;
-        });*/
+        });
     }]);
 })(angular);

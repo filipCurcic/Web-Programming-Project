@@ -18,11 +18,10 @@ def newMovie():
     movie_description = data['desc']
     movie_runtime = data['runtime']
     movie_release = data['release']
-    #actors = data['actor']
     director = data['director']
     actors = data['actor']
     genre = data['genre']
-    #movie_crew = (actors, director)
+
 
 
     
@@ -41,18 +40,45 @@ def newMovie():
     VALUES(%s,%s)
     '''
     
-    print(cursor.insert_id())
 
-    #cursor.execute(query,(movie_title, movie_description, movie_runtime, movie_release))
-    #cursor.execute(query1,(cursor.lastrowid, i["idperson"]))
-    #cursor.execute(query1,(cursor.lastrowid, director["idperson"]))     
-    #for i in genre:
-    #   cursor.execute(query2, (i["idgenre"], cursor.lastrowid))
+    cursor.execute(query,(movie_title, movie_description, movie_runtime, movie_release))
+
+    db.commit()
+    
+
+    cursor.execute(query1,(cursor.lastrowid, director["idperson"]))     
+    for i in actors:
+        cursor.execute(query1,(cursor.lastrowid, i["idperson"]))
+    for i in genre:
+       cursor.execute(query2, (i["idgenre"], cursor.lastrowid))
         
-
-    #db.commit()
+    db.commit()
+    
     return flask.jsonify({"status": "done"}), 201
 
+@admin_services.route("/people", methods=["POST", "GET"])
+def add_person():
+
+    db = mysql.get_db()
+
+    data = request.json
+
+    
+    first_name =  data['first_name']
+    last_name =  data['last_name']
+    gender = data['gender']
+    date_of_birth = data['date_of_birth']
+    person_type = data['person_type']
+    
+    print(data['person_type'], "aaa")
+
+    cursor = db.cursor()
+
+    query = '''INSERT INTO person(first_name, last_name, gender, date_of_birth, person_type) VALUES(%s, %s, %s, %s, %s) '''
+    cursor.execute(query, (first_name, last_name, gender, date_of_birth, person_type))
+    db.commit()
+
+    return flask.jsonify({"status": "done"}), 201
 
 @admin_services.route("/users/<int:iduser>", methods=["DELETE"])
 def remove_user(iduser):
@@ -60,6 +86,18 @@ def remove_user(iduser):
     db = mysql.get_db()
     cursor = db.cursor()
     cursor.execute("DELETE FROM user WHERE iduser=%s", (iduser, ))
+    db.commit()
+
+    return ""
+
+@admin_services.route("/users/<int:iduser>", methods=["PUT"])
+def change_user(iduser):
+
+    db = mysql.get_db()
+    cursor = db.cursor()
+    query = '''UPDATE user SET user.user_type=%s WHERE user.iduser=%s'''
+    
+    cursor.execute(query, ("Admin", iduser, ))
     db.commit()
 
     return ""

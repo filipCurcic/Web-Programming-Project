@@ -15,7 +15,7 @@
                     console.log(reason);
                 })
             },
-            /*isLoggedIn: function(onTrue, onFalse) {
+            isLoggedIn: function(onTrue, onFalse) {
                 $http.get('/isLoggedin').then(function(response) {
                     if(response.data == true) {
                         onTrue();
@@ -26,7 +26,7 @@
                 function(reason) {
                     console.log(reason)
                 })
-            },*/
+            },
             logout: function(onTrue, onFalse) {
                 $http.get('/logout').then(function(response) {
                     if(response.data == true) {

@@ -1,0 +1,37 @@
+<h2 class="text-muted">Add an Actor or Director</h2>
+<form ng-submit="lv.addPerson()" method="post">
+
+    <div class="form-group">
+        <label for="first_name" class="text-muted">First Name:</label>
+        <input type="text" class="form-control" id="first_name" placeholder="Enter First Name" name="first_name" ng-required="true" ng-model="lv.newPerson.first_name">
+    </div>
+
+
+    <div class="form-group">
+        <label for="last_name" class="text-muted">Last Name:</label>
+        <input type="text" class="form-control" id="last_name" placeholder="Enter Last Name" name="last_name" ng-required="true" ng-model="lv.newPerson.last_name">
+    </div>
+
+    <div class="form-group">
+        <label for="Gender" class="text-muted">Gender</label>
+        <div class="cols-sm-10">
+            <input type="radio" name="options" id="M" value="M" ng-model="lv.newPerson.gender"><span class="text-muted">Male</span></input><br>
+            <input type="radio" name="options" id="F" value="F" ng-model="lv.newPerson.gender"><span class="text-muted">Female</span></input><br>
+    </div>
+    </div>
+
+    <div class="form-group">
+        <label for="date_of_birth" class="text-muted">Date of Birth in yyyy-mm-dd format </label>
+        <input type="text" class="form-control" id="date_of_birth" placeholder="Enter Date of Birth" name="date_of_birth" ng-required="true" ng-model="lv.newPerson.date_of_birth">
+       
+    </div>
+
+    <div class="form-group">
+        <label for="role" class="text-muted">Role</label>
+        <div class="cols-sm-10">
+            <input type="radio" name="role" id="ACTOR" value="ACTOR" ng-model="lv.newPerson.person_type"><span class="text-muted">Actor</span></input><br>
+            <input type="radio" name="role" id="DIRECTOR" value="DIRECTOR" ng-model="lv.newPerson.person_type"><span class="text-muted">Director</span></input><br>
+    </div>
+    <br>
+    <button class="btn btn-danger">Submit</button>
+</form>

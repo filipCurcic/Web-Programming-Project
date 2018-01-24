@@ -4,12 +4,13 @@ import flask
 from flask import Blueprint
 from utils.db_connection import mysql
 from flask import request
+from flask import session
 
 user_services = Blueprint("user_services", __name__)
 
 
 
-@user_services.route("/login", methods=["POST"])
+'''@user_services.route("/login", methods=["POST"])
 def login():
     login_user = request.json
     cursor = mysql.get_db().cursor()
@@ -20,7 +21,7 @@ def login():
         session["user"] = user
         return flask.jsonify({"success": True})
 
-    return flask.jsonify({"success": False})
+    return flask.jsonify({"success": False}) 
 
 @user_services.route("/isLoggedin", methods=["GET"])
 def is_loggedin():
@@ -31,25 +32,32 @@ def is_loggedin():
 @user_services.route("/logout", methods=["GET"])
 def logout():
     session.pop("user", None)
-    return flask.jsonify({"success": True})
+    return flask.jsonify({"success": True}) '''
 
 
-@user_services.route('/registration', methods=["POST"])
+@user_services.route('/registration', methods=["POST", "GET"])
 def registration():
     db = mysql.get_db()
-    first_name = request.form['firstName']
-    last_name = request.form['lastName']
-    user_email = request.form['emailAdress']
-    user_name = request.form['username']
-    pass_word = request.form['password']
-    gender = request.form['options']
-    birthday = request.form['date_of_birth']
     cursor = mysql.get_db().cursor()
-    query='''INSERT INTO person(first_name,last_name,gender,date_of_birth) VALUES(%s,%s,%s,%s)'''
-    query1='''INSERT INTO user(username,password,person_idperson,email) VALUES(%s,%s,%s,%s)'''
+    data = request.json
+    print(data)
     
-    cursor.execute(query, (first_name, last_name, gender, birthday))
-    cursor.execute(query1,(user_name, pass_word, cursor.lastrowid, user_email))
+    first_name = data['first_name']
+    last_name = data['last_name']
+    gender = data['gender']
+    birthday = data['date_of_birth']
+
+    user_name = data['username']
+    pass_word = data['password']
+    user_email = data['email']
+
+    
+
+    query='''INSERT INTO person(first_name,last_name,gender,date_of_birth, person_type) VALUES(%s,%s,%s,%s,%s)'''
+    query1='''INSERT INTO user(username,password,person_idperson,email, user_type) VALUES(%s,%s,%s,%s,%s)'''
+    
+    cursor.execute(query, (first_name, last_name, gender, birthday, "USER"))
+    cursor.execute(query1,(user_name, pass_word, cursor.lastrowid, user_email, "User"))
     db.commit()
 
     return flask.jsonify({"status": "done"}), 201

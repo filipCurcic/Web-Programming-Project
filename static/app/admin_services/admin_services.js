@@ -26,6 +26,14 @@
             
         };
 
+        lv.newPerson = {
+            "first_name": "",
+            "last_name": "",
+            "gender": "",
+            "date_of_birth": "",
+            "person_type": ""
+        }
+
         lv.fetchMovies = function() {
             $http.get('/movies').then(
                 function(response) {
@@ -40,11 +48,23 @@
             
             lv.newMovie["actor.person_idperson"] = lv.newMovie["actor"]["person_idperson"];
             lv.newMovie["director.person_idperson"] = lv.newMovie["director"]["person_idperson"];
+            lv.newMovie["genre.idgenre"] = lv.newMovie["genre"]["idgenre"];
 
             $http.post("/movies", lv.newMovie).then(function(response){
 
                 if(response.data["status"] == "done") {
                     lv.fetchMovies();
+                }
+            },
+            function(reason){
+                console.log(reason);
+            })
+        };
+
+        lv.addPerson = function() {
+            $http.post("/people", lv.newPerson).then(function(response){
+                if(response.data["status"] == "done") {
+                    lv.getUsers();
                 }
             },
             function(reason){
@@ -77,6 +97,15 @@
 
         lv.removeUser = function(id) {
             $http.delete("/users/"+id).then(function(response){
+                lv.getUsers();
+            },
+            function(reason){
+                
+                console.log(reason)
+            });
+        };
+        lv.promoteUser = function(id) {
+            $http.put("/users/"+id).then(function(response){
                 lv.getUsers();
             },
             function(reason){

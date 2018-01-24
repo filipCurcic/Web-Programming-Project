@@ -69,6 +69,12 @@
             templateUrl: 'app/movies/directedBy.html',
             controller: 'moviesCtrl',
             controllerAs: 'lv'
+        }).state({
+            name: 'addCrew',
+            url: '/addCrew',
+            templateUrl: 'app/admin_services/addCrew.html',
+            controller: 'adminCtrl',
+            controllerAs: 'lv'
         })
     }]);
 })(angular);
