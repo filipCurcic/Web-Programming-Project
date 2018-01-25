@@ -3,8 +3,8 @@ import flask
 # Dobavljanje klase blueprint iz flask modula.
 from flask import Blueprint
 from utils.db_connection import mysql
-from flask import request
-from flask import session
+from flask import request, session, redirect, flash, render_template
+
 
 user_services = Blueprint("user_services", __name__)
 
@@ -40,7 +40,6 @@ def registration():
     db = mysql.get_db()
     cursor = mysql.get_db().cursor()
     data = request.json
-    print(data)
     
     first_name = data['first_name']
     last_name = data['last_name']
@@ -59,6 +58,6 @@ def registration():
     cursor.execute(query, (first_name, last_name, gender, birthday, "USER"))
     cursor.execute(query1,(user_name, pass_word, cursor.lastrowid, user_email, "User"))
     db.commit()
-
-    return flask.jsonify({"status": "done"}), 201
+    flash("You have successfully registered!")
+    return render_template('../static/index.html')
 
