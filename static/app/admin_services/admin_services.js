@@ -54,6 +54,8 @@
 
                 if(response.data["status"] == "done") {
                     lv.fetchMovies();
+                    alert("You have successfully added a movie")
+                    location.reload();
                 }
             },
             function(reason){
@@ -65,6 +67,8 @@
             $http.post("/people", lv.newPerson).then(function(response){
                 if(response.data["status"] == "done") {
                     lv.getUsers();
+                    alert("You have successfully aded an actor/director")
+                    location.reload();
                 }
             },
             function(reason){

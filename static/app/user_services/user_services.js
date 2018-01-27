@@ -19,16 +19,11 @@
         }
 
 
-        lv.registerPerson = function() {
-            $http.post("/registration", lv.newPerson).then(function(response){
-            },
-            function(reason){
-                console.log(reason);
-            })
-        };
         lv.registerUser = function() {
             $http.post("/registration", lv.newUser).then(function(response){
-                alert("You have successfully registered")
+                $state.transitionTo('app.login')
+                alert("You have successfully registered");
+                
             },
             function(reason){
                 console.log(reason);

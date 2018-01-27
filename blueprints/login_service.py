@@ -2,23 +2,34 @@ import datetime
 import flask
 # Dobavljanje klase blueprint iz flask modula.
 from flask import Blueprint
-from flask import session
+from flask import session, request
 from utils.db_connection import mysql
+from passlib.hash import sha256_crypt
 
 login_service = Blueprint("login_service", __name__)
 
 
-@login_service.route("/login", methods=["POST"])
+@login_service.route("/login", methods=["GET"])
 def login():
-    login_user = request.json
+
+    db = mysql.get_db()
     cursor = mysql.get_db().cursor()
-    cursor.execute("SELECT * FROM user WHERE username=%s AND password=%s", (login_user["username"], login_user["password"]))
-    user = cursor.fetchone()
+    data = request.form
+    username = data["username"]
+    password = data["password"]
 
-    if user is not None:
-        session["user"] = user
-        return flask.jsonify({"success": True})
+    result = cursor.execute("SELECT * FROM user WHERE username=%s", (username))
+    if result > 0:
+        user = cursor.fetchone()
+        user_password = user["password"]
 
+        if sha256_crypt.verify(password, user_password):
+            return flask.jsonify({"success": True})
+            print("Login Succesful")
+        else:
+            print("Login not successful")
+    else:
+        print("no user with that username")
 
     return flask.jsonify({"success": False})
 

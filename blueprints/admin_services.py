@@ -42,15 +42,14 @@ def newMovie():
     
 
     cursor.execute(query,(movie_title, movie_description, movie_runtime, movie_release))
-
-    db.commit()
+    movie_id = cursor.lastrowid
     
 
-    cursor.execute(query1,(cursor.lastrowid, director["idperson"]))     
+    cursor.execute(query1,(movie_id, director["idperson"]))     
     for i in actors:
-        cursor.execute(query1,(cursor.lastrowid, i["idperson"]))
+        cursor.execute(query1,(movie_id, i["idperson"]))
     for i in genre:
-       cursor.execute(query2, (i["idgenre"], cursor.lastrowid))
+       cursor.execute(query2, (i["idgenre"], movie_id))
         
     db.commit()
     
@@ -86,6 +85,10 @@ def remove_user(iduser):
     db = mysql.get_db()
     cursor = db.cursor()
     cursor.execute("DELETE FROM user WHERE iduser=%s", (iduser, ))
+    cursor.execute("DELETE FROM person WHERE iduser=%s", (iduser, ))
+    cursor.execute("DELETE FROM user_ratings WHERE iduser=%s", (iduser, ))
+    cursor.execute("DELETE FROM user_reviews WHERE iduser=%s", (iduser, ))
+    cursor.execute("DELETE FROM watchlist WHERE iduser=%s", (iduser, ))
     db.commit()
 
     return ""

@@ -1,8 +1,8 @@
 <p ng-show="lc.failed">Neuspešno logovanje!</p>
-    <form name="sign_in" ng-submit="lv.checkLogin()">
-        <label class="text-muted" for="inputUsername">Username</label>
-        <input type="text" id="username" class="form-control" placeholder="Username" autofocus="" ng-model="lv.username">
+    <form name="sign_in" action="/login" method="get">
+        <label class="text-muted"  for="inputUsername">Username</label>
+        <input type="text" name="username" id="username" class="form-control" placeholder="Username" autofocus="" ng-model="lv.username">
         <label class="text-muted" for="inputPassword">Password</label>
-        <input type="password" id="password" class="form-control" placeholder="Password" style="margin-bottom:25px" ng-model="lv.password">
+        <input type="password" name="password" id="password" class="form-control" placeholder="Password" style="margin-bottom:25px" ng-model="lv.password">
         <button class="btn btn-default btn-block" type="submit" >Sign in</button>
     </form>

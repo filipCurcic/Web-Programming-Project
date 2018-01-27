@@ -4,7 +4,7 @@ import flask
 from flask import Blueprint
 from utils.db_connection import mysql
 from flask import request, session, redirect, flash, render_template
-
+from passlib.hash import sha256_crypt
 
 user_services = Blueprint("user_services", __name__)
 
@@ -47,8 +47,10 @@ def registration():
     birthday = data['date_of_birth']
 
     user_name = data['username']
-    pass_word = data['password']
+    pass_word = sha256_crypt.encrypt(str(data['password']))
     user_email = data['email']
+
+     
 
     
 
@@ -58,6 +60,5 @@ def registration():
     cursor.execute(query, (first_name, last_name, gender, birthday, "USER"))
     cursor.execute(query1,(user_name, pass_word, cursor.lastrowid, user_email, "User"))
     db.commit()
-    flash("You have successfully registered!")
-    return render_template('../static/index.html')
+    return ''
 
