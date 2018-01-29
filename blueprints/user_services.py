@@ -4,35 +4,8 @@ import flask
 from flask import Blueprint
 from utils.db_connection import mysql
 from flask import request, session, redirect, flash, render_template
-from passlib.hash import sha256_crypt
 
 user_services = Blueprint("user_services", __name__)
-
-
-
-'''@user_services.route("/login", methods=["POST"])
-def login():
-    login_user = request.json
-    cursor = mysql.get_db().cursor()
-    cursor.execute("SELECT * FROM user WHERE username=%s AND password=%s", (login_user["username"], login_user["password"]))
-    user = cursor.fetchone()
-
-    if user is not None:
-        session["user"] = user
-        return flask.jsonify({"success": True})
-
-    return flask.jsonify({"success": False}) 
-
-@user_services.route("/isLoggedin", methods=["GET"])
-def is_loggedin():
-    # Vraca true ako je korisnik ulogovan,
-    # u suprotnom vraca false.
-    return flask.jsonify(session.get("user") is not None)
-
-@user_services.route("/logout", methods=["GET"])
-def logout():
-    session.pop("user", None)
-    return flask.jsonify({"success": True}) '''
 
 
 @user_services.route('/registration', methods=["POST", "GET"])

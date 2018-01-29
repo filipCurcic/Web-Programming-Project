@@ -15,12 +15,12 @@
                     console.log(reason);
                 })
             },
-            isLoggedIn: function(onTrue, onFalse) {
+            isLoggedIn: function() {
                 $http.get('/isLoggedin').then(function(response) {
                     if(response.data == true) {
-                        onTrue();
+                        return true
                     } else {
-                        onFalse();
+                        return false;
                     }
                 },
                 function(reason) {

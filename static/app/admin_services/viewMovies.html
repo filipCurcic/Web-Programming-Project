@@ -13,7 +13,7 @@
               </thead>
               <tbody>
                 <tr ng-repeat="film in lv.movies | orderBy:lv.sortedMovie:lv.reverseMovieSort">
-                  <td class="text-muted">{{film.title}} </td>
+                 <a><td class="text-muted" ui-sref="movie({idmovie: film.idmovie})">{{film.title}} </td></a> 
                   <td class="text-muted">{{film.desc}}</td>
                   <td class="text-muted">{{film.runtime}}min</td>
                   <td class="text-muted">{{film.release}}</td>
@@ -52,8 +52,8 @@
                   <input type="text" class="form-control" id="poster_path" name="poster_path" placeholder="Poster path.." ng-model="lv.zaIzmenu.poster_path">
                 </div>
                 <div class="form-group">
-                  <input class="btn btn-primary" type="submit" ng-disabled="izmenaClanka.$invalid" value="Izmeni">
-                  <button class="btn btn-danger" type="button" ng-click="lv.odustaniOdIzmene()">Odustani</button>
+                  <input class="btn btn-primary" type="submit" ng-disabled="izmenaFilma.$invalid" value="Izmeni">
+                  <button class="btn btn-danger" type="button" ng-click="lv.cancelEdit()">Odustani</button>
                 </div>
               </form>
               <hr>

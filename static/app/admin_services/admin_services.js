@@ -149,6 +149,10 @@
             lv.zaIzmenuBool = true;
         }
 
+        lv.cancelEdit = function() {
+            lv.zaIzmenuBool = false;
+        }
+
 
         
         lv.editMovie = function() {
