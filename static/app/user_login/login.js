@@ -31,8 +31,8 @@
         that.login = function() {
             loginService.login(that.user, function() {
                 that.loggedIn = true;
-                alert(that.loggedInUser)
                 $state.go('home');
+                location.reload();
                
             },
             function() {
@@ -42,7 +42,9 @@
         
 
         loginService.isLoggedIn(function() {
-            $state.go('home');
+            if ($state.includes('login')) {
+                $state.go('home');
+            }
         },
         function() {
             that.showLogin = true;

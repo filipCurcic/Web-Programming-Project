@@ -4,11 +4,23 @@ import flask
 from flask import Blueprint
 from utils.db_connection import mysql
 from flask import request
+from functools import wraps
+
 
 admin_services = Blueprint("admin_services", __name__)
 
 
+def is_logged_in(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if session.get("user")["user_type"] == "Admin":
+            return f(*args, **kwargs)
+        else:
+            return flask.jsonify({"Error": "Unauthorized access"})
+    return wrap
+
 @admin_services.route('/movies', methods=["POST"])
+@is_logged_in
 def newMovie():
     db = mysql.get_db()
     data = request.json

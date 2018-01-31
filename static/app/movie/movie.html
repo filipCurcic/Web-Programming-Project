@@ -5,14 +5,17 @@
     </div>
 
     <div id="movieDetails">
-        <h4><strong><a class="text-muted" id="movieTitle">{{lv.movie.title}} ( {{lv.movie.release}} )</a></strong></h4>
+            
+        <h4><strong><a class="text-muted" id="movieTitle">{{lv.movie.title}} ( {{lv.movie.release}} )</a></strong></h4> 
+        
         
         <div ng-repeat="genre in lv.genres" style="display:inline">
             <a class="text-muted" ui-sref="moviesByGenre({idgenre: genre.idgenre})">{{genre.genre_name}}</a>   
         </div>
         
-        <h4><span class="text-warning">Rating: {{lv.movie.avg_vote}}/10</span></h4>
+        <h4><span class="text-warning">Rating: {{lv.movie.avg_vote}}/10</span></h4> 
         <small class="text-muted">Runtime: {{lv.movie.runtime}}min</small>
+        <button style="width:100px;height:33px"class="btn btn-primary" ng-click="lv.addToWatchlist()">+</button>
         <p><strong>Description:</strong></p>
         <p class="card-text text-muted">{{ lv.movie.desc}}</p>
 

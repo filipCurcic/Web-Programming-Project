@@ -1,0 +1,17 @@
+<table class="table table-striped table-hover tabelaRating">
+        <thead>
+            <tr>
+                
+                <th class="text-muted">Title</th>
+                <th class="text-muted">Date added</th>
+            
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="movie in lv.userWatchlist">
+                <td> <img ng-src="images/{{movie.poster_path}}" style="width:52px; height:72px;" >  <span class="text-muted"><a ui-sref="movie({idmovie: movie.idmovie})">{{movie.title}}</a></span></td>
+                <td> <span class="text-muted"> {{movie.date_added}} </span> </td>
+                <td><img ng-src="images/str.ico" style="width:13px; height:13px"></td>
+            </tr>
+        </tbody>
+    </table>

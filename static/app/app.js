@@ -75,6 +75,12 @@
             templateUrl: 'app/admin_services/addCrew.html',
             controller: 'adminCtrl',
             controllerAs: 'lv'
+        }).state({
+            name: 'watchlist',
+            url: '/watchlist',
+            templateUrl: 'app/user_services/watchlist.html',
+            controller: 'movieCtrl',
+            controllerAs: 'lv'
         })
     }]);
 })(angular);

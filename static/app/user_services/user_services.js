@@ -6,6 +6,7 @@
         lv.newPerson = {
            
         }
+        
         lv.newUser = {
             "first_name": "",
             "last_name": "",
@@ -30,6 +31,7 @@
             })
         };
 
+        
         
         
 

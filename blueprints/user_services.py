@@ -4,6 +4,8 @@ import flask
 from flask import Blueprint
 from utils.db_connection import mysql
 from flask import request, session, redirect, flash, render_template
+from passlib.hash import sha256_crypt
+from pymysql import IntegrityError
 
 user_services = Blueprint("user_services", __name__)
 
@@ -35,3 +37,34 @@ def registration():
     db.commit()
     return ''
 
+@user_services.route('/watchlist', methods=["GET"])
+def watchlist():
+    db = mysql.get_db()
+    cursor = mysql.get_db().cursor()
+    iduser = session.get('user')["iduser"]
+    cursor.execute("SELECT * FROM watchlist INNER JOIN movie ON watchlist.movie_idmovie = movie.idmovie WHERE watchlist.user_iduser=%s", (iduser, ))
+    rows = cursor.fetchall()
+
+    return flask.jsonify(rows)
+
+
+@user_services.route('/AddToWatchlist', methods=["POST"])
+def add_to_watchlist():
+    db = mysql.get_db()
+    data = request.json
+    cursor = mysql.get_db().cursor()
+    
+
+    iduser = session.get('user')["iduser"]
+    movie_idmovie = data["movie_idmovie"]
+
+    query = ''' INSERT INTO watchlist(watchlist.movie_idmovie, watchlist.user_iduser) VALUES(%s, %s) '''
+    try:
+        cursor.execute(query, (movie_idmovie, iduser))
+        db.commit()
+        return flask.jsonify({"status": "done"}), 201
+    except IntegrityError:
+        return flask.jsonify({"status": "error"})
+
+    
+    

@@ -13,12 +13,14 @@
   <!-- Custom styles for this template -->
   <link href="css/main.css" rel="stylesheet">
   <link href="css/movie-page.css" rel="stylesheet">
+  <link href="css/user_profile.css" rel="stylesheet">
 
 
 </head>
 
 <body ng-app="Aplikacija">
-  <header ng-controller="LoginCtrl as that">
+  <header>
+    <div ng-controller="LoginCtrl as that">
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
       <a class="navbar-brand" href="http://localhost">PMDB</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
@@ -43,14 +45,14 @@
           </li>
 
           <li class="nav-item active">
-              <a class="nav-link" ui-sref="register">Register</a>
-            </li>
-            <li class="nav-item active">
-              <a class="nav-link" ui-sref="login">Login</a>
-              
-            </li>
-            
-          <li class="nav-item active">
+            <a class="nav-link" ui-sref="register" ng-show="!that.loggedIn">Register</a>
+          </li>
+          <li class="nav-item active" ng-show="!that.loggedIn">
+            <a class="nav-link" ui-sref="login">Login</a>
+
+          </li>
+
+          <li class="nav-item active" ng-show="that.loggedInUser.user_type == 'Admin'">
             <div class="dropdown">
               <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="false">
@@ -64,20 +66,27 @@
               </div>
             </div>
 
-            <li class="nav-item active">
-              Welcome, {{that.loggedInUser.username}}
-            </li>
+            <li class="nav-item active mt-2 mt-md-0" ng-show="that.loggedIn" >
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
+                      Welcome {{that.loggedInUser.username}}
+                    </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" ui-sref="userProfile({ iduser: that.loggedInUser.iduser })"> View Profile </a>
+                  <a class="dropdown-item" ui-sref="watchlist"> Watchlist </a>
+                  <a class="dropdown-item" ui-sref=""> Edit Profile </a>
+                  <a class="dropdown-item" href="/logout" ng-click="that.logout()"> Log Out </a>
+                </div>
+              </div>
 
-           
+
         </ul>
+      </div>
 
-        <button ng-click="that.logout()" ng-show="that.loggedIn"><a href="/logout">Log Out</a></button>
+
         
 
-        <form class="form-inline mt-2 mt-md-0">
-          
-          <input ng-model="searchInput.title" type="text" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-        </form>
     </nav>
   </header>
 
@@ -92,6 +101,9 @@
 
 
       <p class="lead text-muted">All of your favourite movies in one place. Rate, share and review them!</p>
+      <form>
+          <input style="width:620px" ng-model="searchInput.title" type="text" class="form-control mr-sm-2" type="text" placeholder="Search movies.." aria-label="Search">
+        </form>
 
     </div>
   </section>
