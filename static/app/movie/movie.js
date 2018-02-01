@@ -8,6 +8,10 @@
         lv.genres = [];
         lv.userWatchlist = [];
         lv.movieId = $stateParams.idmovie;
+        lv.ratedMovie = {
+            "movie_rating": "",
+            "movie_idmovie": lv.movieId
+        }
         lv.Add = {
             "movie_idmovie": lv.movieId,
         }  
@@ -54,13 +58,39 @@
 
         lv.watchlist();
         lv.addToWatchlist = function() {
-            
             $http.post("/AddToWatchlist", lv.Add).then(function(response){   
                 if(response.data["status"] == "done") {
                     alert("You have added that movie to your watchlist")
                 }
                 else if (response.data["status"] == "error") {
                     alert("That movie already exists in your watchlist!")
+                }
+                else if(response.data["status"] == "logError") {
+                    alert("You have to be logged in")
+                }
+            },
+            function(reason){
+                console.log(reason);
+            })
+        }
+
+        lv.removeFromWatchlist = function(idmovie) {
+            $http.delete("/watchlist/"+idmovie).then(function(response){
+                lv.watchlist();
+            },
+            function(reason){
+                
+                console.log(reason)
+            });
+        };
+
+        lv.rateMovie = function() {
+            $http.post("/rateMovie", lv.ratedMovie).then(function(response){   
+                if(response.data["status"] == "done") {
+                    alert("You have sucessfully rated that movie")
+                }
+                else if (response.data["status"] == "error") {
+                    alert("asd")
                 }
             },
             function(reason){

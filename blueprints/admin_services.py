@@ -10,7 +10,7 @@ from functools import wraps
 admin_services = Blueprint("admin_services", __name__)
 
 
-def is_logged_in(f):
+'''def is_logged_in(f):
     @wraps(f)
     def wrap(*args, **kwargs):
         if session.get("user")["user_type"] == "Admin":
@@ -18,9 +18,10 @@ def is_logged_in(f):
         else:
             return flask.jsonify({"Error": "Unauthorized access"})
     return wrap
+'''
 
 @admin_services.route('/movies', methods=["POST"])
-@is_logged_in
+
 def newMovie():
     db = mysql.get_db()
     data = request.json
@@ -34,6 +35,11 @@ def newMovie():
     actors = data['actor']
     genre = data['genre']
 
+    cursor.execute("SELECT title FROM movie")
+
+    titleCheck = cursor.fetchall()
+
+    print(titleCheck)
 
 
     
@@ -52,20 +58,23 @@ def newMovie():
     VALUES(%s,%s)
     '''
     
+    for i in titleCheck:
+        if movie_title == i["title"]:
+            return flask.jsonify({"status": "error"})
+        else:
+            cursor.execute(query,(movie_title, movie_description, movie_runtime, movie_release))
+            movie_id = cursor.lastrowid
+            
 
-    cursor.execute(query,(movie_title, movie_description, movie_runtime, movie_release))
-    movie_id = cursor.lastrowid
-    
-
-    cursor.execute(query1,(movie_id, director["idperson"]))     
-    for i in actors:
-        cursor.execute(query1,(movie_id, i["idperson"]))
-    for i in genre:
-       cursor.execute(query2, (i["idgenre"], movie_id))
-        
-    db.commit()
-    
-    return flask.jsonify({"status": "done"}), 201
+            cursor.execute(query1,(movie_id, director["idperson"]))     
+            for i in actors:
+                cursor.execute(query1,(movie_id, i["idperson"]))
+            for i in genre:
+                cursor.execute(query2, (i["idgenre"], movie_id))
+                
+            db.commit()
+            
+            return flask.jsonify({"status": "done"}), 201
 
 @admin_services.route("/people", methods=["POST", "GET"])
 def add_person():
@@ -97,10 +106,10 @@ def remove_user(iduser):
     db = mysql.get_db()
     cursor = db.cursor()
     cursor.execute("DELETE FROM user WHERE iduser=%s", (iduser, ))
-    cursor.execute("DELETE FROM person WHERE iduser=%s", (iduser, ))
-    cursor.execute("DELETE FROM user_ratings WHERE iduser=%s", (iduser, ))
-    cursor.execute("DELETE FROM user_reviews WHERE iduser=%s", (iduser, ))
-    cursor.execute("DELETE FROM watchlist WHERE iduser=%s", (iduser, ))
+    cursor.execute("DELETE FROM person WHERE idperson=(SELECT user.person_idperson FROM user WHERE iduser=%s)", (iduser, ))
+    cursor.execute("DELETE FROM user_ratings WHERE user_iduser=%s", (iduser, ))
+    cursor.execute("DELETE FROM user_reviews WHERE user_iduser=%s", (iduser, ))
+    cursor.execute("DELETE FROM watchlist WHERE user_iduser=%s", (iduser, ))
     db.commit()
 
     return ""

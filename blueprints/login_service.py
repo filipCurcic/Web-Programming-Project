@@ -36,8 +36,10 @@ def login():
             
         else:
             print("Login not successful")
+            return flask.jsonify({"success": "wrong"})
     else:
-        print("no user with that username")
+        print("No user with that username")
+        return flask.jsonify({"success": "notFound"})
 
     return flask.jsonify({"success": False})
 

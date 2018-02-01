@@ -14,6 +14,20 @@
         </div>
         
         <h4><span class="text-warning">Rating: {{lv.movie.avg_vote}}/10</span></h4> 
+        <select class="styled-select black rounded" ng-model="lv.ratedMovie.movie_rating" style="width:50px;background-color: #000;color: #fff;">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select> 
+        <button ng-click="lv.rateMovie()">Rate</button>
+          <p>Your rating: {{lv.rating}}</p>
         <small class="text-muted">Runtime: {{lv.movie.runtime}}min</small>
         <button style="width:100px;height:33px"class="btn btn-primary" ng-click="lv.addToWatchlist()">+</button>
         <p><strong>Description:</strong></p>

@@ -37,12 +37,18 @@
             },
             function() {
                 that.failed = true;
-            })
+                alert("Username and password do not match")
+            },
+            function() {
+                that.failed = true;
+                alert("That username does not exist")
+            }
+            )
         }
         
 
         loginService.isLoggedIn(function() {
-            if ($state.includes('login')) {
+            if ($state.includes('login') || $state.includes('register')) {
                 $state.go('home');
             }
         },

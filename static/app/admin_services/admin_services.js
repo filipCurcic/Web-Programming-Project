@@ -57,6 +57,9 @@
                     alert("You have successfully added a movie")
                     location.reload();
                 }
+                else if(response.data["status"] == "error") {
+                    alert("A movie with that title already exists")
+                }
             },
             function(reason){
                 console.log(reason);

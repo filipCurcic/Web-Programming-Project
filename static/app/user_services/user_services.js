@@ -22,8 +22,14 @@
 
         lv.registerUser = function() {
             $http.post("/registration", lv.newUser).then(function(response){
-                $state.transitionTo('app.login')
-                alert("You have successfully registered");
+                if(response.data["status"] == "done") {
+                    $state.go('home');
+                    alert("You have successfully registered");
+                }
+                else if(response.data["status"] == "error") {
+                    alert("A user with that username or email already exists")
+                }
+                
                 
             },
             function(reason){

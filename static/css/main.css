@@ -167,3 +167,6 @@ code {
   border: 0.5px solid black;
 }
 
+.dropdown-item:hover {
+  background-color: rgba(148, 147, 147, 0.11)
+}
