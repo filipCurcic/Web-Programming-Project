@@ -27,7 +27,7 @@
             <option value="10">10</option>
         </select> 
         <button ng-click="lv.rateMovie()">Rate</button>
-          <p>Your rating: {{lv.rating}}</p>
+          <p>Your rating: {{lv.ratingsByUser.rating}}</p>
         <small class="text-muted">Runtime: {{lv.movie.runtime}}min</small>
         <button style="width:100px;height:33px"class="btn btn-primary" ng-click="lv.addToWatchlist()">+</button>
         <p><strong>Description:</strong></p>

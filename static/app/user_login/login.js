@@ -10,6 +10,13 @@
             'password': ''
         }
         that.loggedInUser = {};
+        that.editUser = {
+            "first_name": "",
+            "last_name": "",
+            "username": "",
+            "email": "",
+
+        };
 
         that.getUser = function() {
             $http.get('/loggedInUser').then(
@@ -27,6 +34,35 @@
             alert("You have successfully logged out")
             
         }
+
+        that.editProfile = function() {
+            if(that.editUser["first_name"] == ''){
+                that.editUser["first_name"] = that.loggedInUser["first_name"];
+            }
+            if(that.editUser["last_name"] == ''){
+                that.editUser["last_name"] = that.loggedInUser["last_name"];
+            }
+            if(that.editUser["username"] == ''){
+                that.editUser["username"] = that.loggedInUser["username"];
+            }
+            if(that.editUser["email"] == ''){
+                that.editUser["email"] = that.loggedInUser["email"];
+            }
+            $http.put("/editedProfile", that.editUser).then(function(response){
+                if(response.data["status"] == 'success') {
+                    alert("You have saved your changes!")
+                    location.reload();
+                }
+                else if (response.data["status"] == 'error') {
+                    alert("That username or email already exist")
+                }
+                
+            },
+            function(reason){
+                
+                console.log(reason)
+            });
+        };
 
         that.login = function() {
             loginService.login(that.user, function() {

@@ -81,6 +81,25 @@
             templateUrl: 'app/user_services/watchlist.html',
             controller: 'movieCtrl',
             controllerAs: 'lv'
+        }).state({
+            name: 'userProfile',
+            url: '/profile/{iduser}',
+            templateUrl: 'app/user_login/userProfile.html',
+            controller: 'LoginCtrl',
+            controllerAs: 'lv'
+        }).state({
+            name: 'editProfile',
+            url: '/editProfile/{iduser}',
+            templateUrl: 'app/user_login/editProfile.html',
+            controller: 'LoginCtrl',
+            controllerAs: 'that'
+        }).state({
+            name: 'userRatings',
+            url: '/userRatings',
+            templateUrl: 'app/user_services/userRatings.html',
+            controller: 'movieCtrl',
+            controllerAs: 'lv'
         })
+        
     }]);
 })(angular);

@@ -1,6 +1,5 @@
 import datetime
 import flask
-# Dobavljanje klase blueprint iz flask modula.
 from flask import Blueprint
 from utils.db_connection import mysql
 from flask import request, session, redirect, flash, render_template
@@ -27,11 +26,11 @@ def registration():
 
     cursor.execute("SELECT username FROM user")
     username_check = cursor.fetchall()
-    print(username_check)
+
 
     cursor.execute("SELECT email FROM user")
     email_check = cursor.fetchall()
-    print(email_check)
+
 
     
      
@@ -115,3 +114,58 @@ def rate_movie():
         return flask.jsonify({"status": "done"}), 201
     except IntegrityError:
         return flask.jsonify({"status": "error"})
+
+@user_services.route('/ratingsByUser', methods=["GET"])
+def ratings():
+    db = mysql.get_db()
+    cursor = mysql.get_db().cursor()
+    iduser = session.get('user')["iduser"]
+    cursor.execute("SELECT * FROM user_ratings INNER JOIN movie ON user_ratings.movie_idmovie = movie.idmovie WHERE user_ratings.user_iduser=%s", (iduser, ))
+    rows = cursor.fetchall()
+
+    return flask.jsonify(rows)
+
+@user_services.route("/ratingsByUser/<int:idmovie>", methods=["GET"])
+def movie_rating(idmovie):
+    
+    cursor = mysql.get_db().cursor()
+    iduser1 = session.get('user')["iduser"]
+    cursor.execute("SELECT * FROM user_ratings INNER JOIN movie ON user_ratings.movie_idmovie = movie.idmovie WHERE user_ratings.movie_idmovie=%s AND user_ratings.user_iduser=%s", (idmovie, iduser1))
+    rows = cursor.fetchall()
+
+
+    return flask.jsonify(rows)
+
+@user_services.route("/editedProfile", methods=["PUT"])
+def change_profile():
+    data = request.json
+    db = mysql.get_db()
+    cursor = db.cursor()
+    iduser2 = session.get('user')["iduser"]
+    
+    changed_username = data["username"]
+    changed_email = data["email"]
+    changed_first_name = data["first_name"]
+    changed_last_name = data["last_name"]
+
+    cursor.execute("SELECT username FROM user")
+    username_check = cursor.fetchall()
+
+    cursor.execute("SELECT email FROM user")
+    email_check = cursor.fetchall()
+
+    q = ''' UPDATE user SET user.username=%s, user.email=%s WHERE user.iduser=%s '''
+
+    q1 = ''' UPDATE person SET person.first_name=%s, person.last_name=%s WHERE idperson=(SELECT person_idperson FROM user WHERE user.iduser=%s) '''
+    
+    for i in username_check:
+        for j in email_check:
+            if changed_username == i["username"] or changed_email == j["email"]:
+                return flask.jsonify({"status": "error"})
+
+    cursor.execute(q, (changed_username, changed_email, iduser2))
+    cursor.execute(q1, (changed_first_name, changed_last_name, iduser2))
+
+    db.commit()
+    print(data)
+    return flask.jsonify({"status": "success"})

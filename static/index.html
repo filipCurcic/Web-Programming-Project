@@ -73,9 +73,10 @@
                       Welcome {{that.loggedInUser.username}}
                     </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" ui-sref="userProfile({ iduser: that.loggedInUser.iduser })"> View Profile </a>
+                    <a class="dropdown-item" ui-sref="userProfile( { iduser: that.loggedInUser.iduser } )"> View Profile </a>
                     <a class="dropdown-item" ui-sref="watchlist"> Watchlist </a>
-                    <a class="dropdown-item" ui-sref=""> Edit Profile </a>
+                    <a class="dropdown-item" ui-sref="userRatings"> Your ratings </a>
+                    <a class="dropdown-item" ui-sref="editProfile( { iduser: that.loggedInUser.iduser } )"> Edit Profile </a>
                     <a class="dropdown-item" href="/logout" ng-click="that.logout()"> Log Out </a>
                   </div>
                 </div>

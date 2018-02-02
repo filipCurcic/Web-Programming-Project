@@ -1,0 +1,56 @@
+<div id="movieContainer">
+    <div id="flexContainer">
+        <div id="moviePosterContainer">
+            <img ng-src="images/pp.png" style="height:200px; width:150px">
+        </div>
+
+        <div id="movieDetails">
+            <form>
+                <h4><strong><a class="text-muted" id="firstName">Name: {{that.loggedInUser.first_name}} {{that.loggedInUser.last_name}}</a></strong></h4>
+                <div class="form-group">
+                    <label for="first_name" class="text-muted">First Name</label>
+                    <input type="text" class="form-control" id="firstName" name="firstName" placeholder="{{that.loggedInUser.first_name}}" ng-model="that.editUser.first_name">
+                </div>
+
+                <div class="form-group">
+                    <label for="last_name" class="text-muted">Last Name</label>
+                    <input type="text" class="form-control" id="last_name" name="last_name" placeholder="{{that.loggedInUser.last_name}}" ng-model="that.editUser.last_name">
+                </div>
+
+                <div class="form-group">
+                    <label for="username" class="text-muted">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="{{that.loggedInUser.username}}" ng-model="that.editUser.username">
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="text-muted">Email</label>
+                    <input type="text" class="form-control" id="email" name="email" placeholder="{{that.loggedInUser.email}}" ng-model="that.editUser.email">
+                </div>
+
+
+                <div class="form-group">
+                    <button class="btn btn-primary" ng-click="that.editProfile()"> Save Changes </button>
+                </div>
+            </form>
+
+            <div id="moviePersonel">
+
+                <div>
+
+                </div>
+
+                <div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+</div>

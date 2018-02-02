@@ -16,6 +16,9 @@
             "movie_idmovie": lv.movieId,
         }  
 
+        lv.ratingsByUser = [];
+        lv.movieRatingByUser = [];
+        
         lv.getMovie = function() {
             $http.get("/movies/"+$stateParams.idmovie).then(function(response){
                 lv.movie = response.data;
@@ -84,6 +87,29 @@
             });
         };
 
+        lv.ratings = function() {
+            $http.get('/ratingsByUser').then(
+                function(response) {
+                    lv.ratingsByUser = response.data;
+                },
+                function(reason) {
+                    console.log(reason);
+                }
+            );
+        };
+
+        lv.movieRating = function() {
+            $http.get('/ratingsByUser/'+$stateParams.idmovie).then(
+                function(response) {
+                    lv.movieRatingByUser = response.data;
+                },
+                function(reason) {
+                    console.log(reason);
+                }
+            );
+        };
+
+
         lv.rateMovie = function() {
             $http.post("/rateMovie", lv.ratedMovie).then(function(response){   
                 if(response.data["status"] == "done") {
@@ -102,5 +128,7 @@
         lv.getMovie();
         lv.getActors();
         lv.fetchGenres();
+        lv.ratings();
+        lv.movieRating();
     }]);
 })(angular);
