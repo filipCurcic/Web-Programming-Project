@@ -42,7 +42,6 @@ def registration():
     for i in username_check:
         for j in email_check:
             if user_name == i["username"] or user_email == j["email"]:
-                print("A user with that username or email already exists")
                 return flask.jsonify({"status": "error"})
     cursor.execute(query, (first_name, last_name, gender, birthday, "USER"))
     cursor.execute(query1,(user_name, pass_word, cursor.lastrowid, user_email, "User"))
@@ -66,11 +65,14 @@ def add_to_watchlist():
     data = request.json
     cursor = mysql.get_db().cursor()
     
-
+    
     
     try:
+        if session.get('user')["iduser"] == None:
+            return flask.jsonify({"status": "logError"})
         iduser = session.get('user')["iduser"]
         movie_idmovie = data["movie_idmovie"]
+        
 
         query = ''' INSERT INTO watchlist(watchlist.movie_idmovie, watchlist.user_iduser) VALUES(%s, %s) '''
         cursor.execute(query, (movie_idmovie, iduser))
@@ -78,8 +80,7 @@ def add_to_watchlist():
         return flask.jsonify({"status": "done"}), 201
     except IntegrityError:
         return flask.jsonify({"status": "error"})
-    except TypeError:
-        return flask.jsonify({"status": "logError"})
+    
 
     
 
@@ -103,13 +104,35 @@ def rate_movie():
     user_id = session.get("user")["iduser"]
     movie_user_rating = data["movie_rating"]
     movie_id = data["movie_idmovie"]
-    print('aaaaa', data["movie_rating"])
-    print(data["movie_rating"])
+   
+
+    cursor.execute("SELECT movie_idmovie FROM user_ratings")
+    movie_id_check = cursor.fetchall()
+
+    cursor.execute("SELECT user_iduser FROM user_ratings")
+    user_id_check = cursor.fetchall()
 
     query = ''' INSERT INTO user_ratings(rating, movie_idmovie, user_iduser) VALUES(%s, %s, %s)'''
+    query2 = ''' UPDATE movie SET movie.vote_amt = movie.vote_amt + 1 WHERE movie.idmovie=%s '''
+    query3 = ''' UPDATE movie SET movie.vote_sum = movie.vote_sum + %s WHERE movie.idmovie=%s ''' 
 
+
+
+    ''' for i in movie_id_check:
+        print(i["movie_idmovie"], movie_id)
+        if i['movie_idmovie'] == movie_id:
+            print("equals")
+        
+    ''' #doesn't work for some reason, it never seems to be equal even if it obviously is
+    
+    for i in movie_id_check:
+        for j in user_id_check:
+            if movie_id == i["movie_idmovie"] and user_id == j["user_iduser"]: #this should prevent users from rating the same movie twice
+                return flask.jsonify({"status": "rated"})
     try:
         cursor.execute(query, (movie_user_rating, movie_id, user_id))
+        cursor.execute(query2, (movie_id))
+        cursor.execute(query3, (movie_user_rating, movie_id))
         db.commit()
         return flask.jsonify({"status": "done"}), 201
     except IntegrityError:

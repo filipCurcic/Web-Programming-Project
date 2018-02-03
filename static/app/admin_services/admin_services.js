@@ -17,6 +17,9 @@
             "desc": "",
             "runtime": "",
             "release": "",
+            "vote_count": "",
+            "avg_vote": "",
+            "poster_path": "",
             "actor": undefined,
             "actor.person_idperson": "",
             "director": undefined,
@@ -51,6 +54,7 @@
             lv.newMovie["genre.idgenre"] = lv.newMovie["genre"]["idgenre"];
 
             $http.post("/movies", lv.newMovie).then(function(response){
+                
 
                 if(response.data["status"] == "done") {
                     lv.fetchMovies();
@@ -113,7 +117,12 @@
         };
         lv.promoteUser = function(id) {
             $http.put("/users/"+id).then(function(response){
-                lv.getUsers();
+                if (response.data["status"] == "success"){
+                    alert("You have successfully promoted that user")
+                    lv.getUsers();
+                }
+                
+                
             },
             function(reason){
                 

@@ -8,7 +8,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="rating in lv.ratingsByUser track by $index">
+        <tr ng-repeat="rating in lv.ratingsByUser ">
             <td> <img ng-src="images/{{rating.poster_path}}" style="width:52px; height:72px;" ><a class="text-muted" ui-sref="movie({idmovie: rating.idmovie})">{{rating.title}}</a></td>
             <td> <img ng-src="images/str.ico" style="width:13px; height:13px"><span class="text-muted"> {{rating.rating}} </span> </td>
         </tr>

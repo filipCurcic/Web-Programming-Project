@@ -29,7 +29,7 @@ def movie(idmovie):
 def ratings():
 
     cursor = mysql.get_db().cursor()
-    cursor.execute("SELECT * FROM user_ratings INNER JOIN movie ON user_ratings.movie_idmovie = movie.idmovie")
+    cursor.execute("SELECT movie.vote_sum, movie.vote_amt, movie.title, movie.poster_path FROM movie ORDER BY movie.avg_vote DESC")
     rows = cursor.fetchall()
 
     return flask.jsonify(rows)

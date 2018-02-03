@@ -5,12 +5,16 @@ from flask import Blueprint
 from utils.db_connection import mysql
 from flask import request
 from functools import wraps
+from werkzeug.utils import secure_filename
+import os
 
 
 admin_services = Blueprint("admin_services", __name__)
 
 
-'''def is_logged_in(f):
+
+
+'''def is_logged_in(f): 
     @wraps(f)
     def wrap(*args, **kwargs):
         if session.get("user")["user_type"] == "Admin":
@@ -20,10 +24,17 @@ admin_services = Blueprint("admin_services", __name__)
     return wrap
 '''
 
-@admin_services.route('/movies', methods=["POST"])
+def allowed_file(filename):
+    return '.' in filename and \
+        filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+
+
+
+@admin_services.route('/movies', methods=["POST"])
 def newMovie():
     db = mysql.get_db()
+    
     data = request.json
     cursor = mysql.get_db().cursor()
 
@@ -34,6 +45,19 @@ def newMovie():
     director = data['director']
     actors = data['actor']
     genre = data['genre']
+    vote_amount = data['vote_count']
+    average_vote = data['avg_vote']
+    
+    '''
+    uploaded_file = request.files.get('poster')
+    
+    ext = os.path.splitext(uploaded_file.filename)[1]
+    db_poster = uploaded_file+ext
+
+    if uploaded_file and allowed_file(uploaded_file.filename):
+        filename = secure_filename(uploaded_file.filename)
+        uploaded_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    '''
 
     cursor.execute("SELECT title FROM movie")
 
@@ -44,8 +68,8 @@ def newMovie():
 
     
     query = '''INSERT INTO 
-    movie(movie.title, movie.desc, movie.runtime, movie.release)
-    VALUES(%s, %s, %s, %s)
+    movie(movie.title, movie.desc, movie.runtime, movie.release, movie.vote_count, movie.avg_vote, movie.vote_sum, movie.vote_amt)
+    VALUES(%s, %s, %s, %s, %s, %s, %s, %s)
     '''
 
     query1 = '''INSERT INTO
@@ -62,7 +86,7 @@ def newMovie():
         if movie_title == i["title"]:
             return flask.jsonify({"status": "error"})
         else:
-            cursor.execute(query,(movie_title, movie_description, movie_runtime, movie_release))
+            cursor.execute(query,(movie_title, movie_description, movie_runtime, movie_release, vote_amount, average_vote, 0, 0))
             movie_id = cursor.lastrowid
             
 
@@ -116,6 +140,7 @@ def remove_user(iduser):
 
 @admin_services.route("/users/<int:iduser>", methods=["PUT"])
 def change_user(iduser):
+    
 
     db = mysql.get_db()
     cursor = db.cursor()
@@ -123,8 +148,9 @@ def change_user(iduser):
     
     cursor.execute(query, ("Admin", iduser, ))
     db.commit()
+    print("asdasdasd")
 
-    return ""
+    return flask.jsonify({"status":"success"})
 
 
 

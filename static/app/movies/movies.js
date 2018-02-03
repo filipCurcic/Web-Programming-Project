@@ -5,9 +5,11 @@
 
         lv.movies = [];
         lv.ratings = [];
+        lv.avgRating = lv.ratings['vote_sum'] / lv.ratings['vote_amt']
         lv.pop = [];
         lv.moviesGenres = [];
         lv.moviesDirectors = [];
+        
 
 
         lv.fetchMovies = function() {

@@ -1,28 +1,48 @@
-<div id="movieContainer">
-    <div id="flexContainer">
-    <div id="moviePosterContainer">
-        <img ng-src="images/pp.png" style="height:200px; width:150px">
-    </div>
+<div id="profileContainer">
+    <div id="userFlexContainer">
+        <div id="profileAvatar">
+            <img ng-src="images/pp.png" style="height:250px; width:200px">
+        </div>
 
-    <div id="movieDetails">
-        <h4><strong><a class="text-muted" id="firstName">Name: {{lv.loggedInUser.first_name}} {{lv.loggedInUser.last_name}}</a></strong></h4>
-
-        <h4><span class="text-muted">Username: {{lv.loggedInUser.username}}</span></h4>
-        <h4><span class="text-muted">Email Adress: {{lv.loggedInUser.email}}</span></h4>
-        <h4 class="text-muted">Date of Birth: {{lv.loggedInUser.date_of_birth}}min</small>
-        
-        <div id="moviePersonel">
-
-            <div>
-                
+        <div id="profileDetails">
+            <table style="width:100%" class=" table table-dark profileTable">
+                <tr>
+                    <th class="text-muted">First Name:</th>
+                    <td class="text-muted">{{lv.loggedInUser.first_name}}</td>
+                </tr>
+                <tr>
+                    <th class="text-muted">Last Name:</th>
+                    <td class="text-muted"> {{lv.loggedInUser.last_name}}</td>
+                </tr>
+                <tr>
+                    <th class="text-muted">Username:</th>
+                    <td class="text-muted">{{lv.loggedInUser.username}}</td>
+                </tr>
+                <tr>
+                    <th class="text-muted">Email Adress:</th>
+                    <td class="text-muted">{{lv.loggedInUser.email}}</td>
+                </tr>
+                <tr>
+                    <th class="text-muted">Date of Birth:</th>
+                    <td class="text-muted">{{lv.loggedInUser.date_of_birth | limitTo: 16}}</td>
+                </tr>
+            </table>
+            <div id="buttons">
+                <a ui-sref="editProfile( { iduser: lv.loggedInUser.iduser } )"><button class="btn btn-primary">Edit Profile</button></a>
+                <a href="/logout" ng-click="lv.logout()"><button class="btn btn-danger">Log Out</button></a>
             </div>
+            <div id="moviePersonel">
 
-            <div>
-                
+                <div>
+
+                </div>
+
+                <div>
+
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 </div>
 

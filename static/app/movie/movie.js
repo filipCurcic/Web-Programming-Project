@@ -115,6 +115,9 @@
                 if(response.data["status"] == "done") {
                     alert("You have sucessfully rated that movie")
                 }
+                else if (response.data["status"] == "rated") {
+                    alert("You have already rated that movie")
+                }
                 else if (response.data["status"] == "error") {
                     alert("asd")
                 }

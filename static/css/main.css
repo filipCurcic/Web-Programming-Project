@@ -47,6 +47,14 @@ body {
 
   
 }
+.profileTable, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+.profileTable th, td {
+    padding: 10px;
+    text-align: left;
+}
 .card-group {
   margin:0 auto;
 }
@@ -54,10 +62,35 @@ body {
   width: 500px;
   margin: 0 auto;
 }
+#userFlexContainer {
+  display: flex;
+  padding: 5px;
+  height: 310px;
+  
+}
 
-/* Custom page CSS
--------------------------------------------------- */
-/* Not required for template or sticky footer method. */
+#profileContainer {
+  border: 1px solid #3F3F3F;
+  border-radius: 10px;
+  margin: 5px;
+  width: 45%;
+  height: 80%;
+  margin: 0 auto;
+  background-image: url("stardust.png");
+  background-color: #575757
+
+}
+
+profileAvatar {
+  padding: 20px;
+}
+
+#profileDetails{
+  width: 300px;
+  height: 205px;
+  margin-left: 10px;
+
+}
 
 body > .container {
   padding: 60px 15px 0;
@@ -169,4 +202,20 @@ code {
 
 .dropdown-item:hover {
   background-color: rgba(148, 147, 147, 0.11)
+}
+
+
+#editContainer {
+
+  border: 1px solid #3F3F3F;
+  border-radius: 10px;
+  margin: 5px;
+  width: 45%;
+  height: 80%;
+  margin: 0 auto;
+  background-image: url("stardust.png");
+  background-color: #575757;
+  padding: 10px;
+  
+  
 }
