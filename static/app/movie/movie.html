@@ -1,20 +1,20 @@
 <div id="movieContainer">
     <div id="flexContainer">
-    <div id="moviePosterContainer">
-        <img ng-src="images/{{lv.movie.poster_path}}" style="height:400px; width:250px">
-    </div>
-
-    <div id="movieDetails">
-            
-        <h4><strong><a class="text-muted" id="movieTitle">{{lv.movie.title}} ( {{lv.movie.release}} )</a></strong></h4> 
-        
-        
-        <div ng-repeat="genre in lv.genres" style="display:inline">
-            <a class="text-muted" ui-sref="moviesByGenre({idgenre: genre.idgenre})">{{genre.genre_name}}</a>   
+        <div id="moviePosterContainer">
+            <img ng-src="images/{{lv.movie.poster_path}}" style="height:400px; width:250px">
         </div>
-        
-        <h4><span class="text-warning">Rating: {{lv.movie.avg_vote}}/10</span></h4> 
-        <select class="styled-select black rounded" ng-model="lv.ratedMovie.movie_rating" style="width:50px;background-color: #000;color: #fff;">
+
+        <div id="movieDetails">
+
+            <h4><strong><a class="text-muted" id="movieTitle">{{lv.movie.title}} ( {{lv.movie.release}} )</a></strong></h4>
+
+
+            <div ng-repeat="genre in lv.genres" style="display:inline">
+                <a class="text-muted" ui-sref="moviesByGenre({idgenre: genre.idgenre})">{{genre.genre_name}}</a>
+            </div>
+
+            <h4><span class="text-warning">Rating: {{lv.movie.avg_vote}}/10</span></h4>
+            <select class="styled-select black rounded" ng-model="lv.ratedMovie.movie_rating" style="width:50px;background-color: #000;color: #fff;">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -25,43 +25,48 @@
             <option value="8">8</option>
             <option value="9">9</option>
             <option value="10">10</option>
-        </select> 
-        <button ng-click="lv.rateMovie()">Rate</button>
-          <p>Your rating: {{lv.ratingsByUser.rating}}</p>
-        <small class="text-muted">Runtime: {{lv.movie.runtime}}min</small>
-        <button style="width:100px;height:33px"class="btn btn-primary" ng-click="lv.addToWatchlist()">+</button>
-        <p><strong>Description:</strong></p>
-        <p class="card-text text-muted">{{ lv.movie.desc}}</p>
+        </select>
+            <button ng-click="lv.rateMovie()">Rate</button>
+            <p>Your rating: {{lv.ratingsByUser.rating}}</p>
+            <small class="text-muted">Runtime: {{lv.movie.runtime}}min</small>
+            <button style="width:100px;height:33px" class="btn btn-primary" ng-click="lv.addToWatchlist()">+</button>
+            <p><strong>Description:</strong></p>
+            <p class="card-text text-muted">{{ lv.movie.desc}}</p>
 
-        <div id="moviePersonel">
+            <div id="moviePersonel">
 
-            <div>
-                <h5>Starring:</h5>
-                <div ng-repeat="actor in lv.movieActors | filter: { person_type: 'ACTOR' }:true" class="card-text text-muted">
-                    {{actor.first_name}} {{actor.last_name}}
+                <div>
+                    <h5>Starring:</h5>
+                    <div ng-repeat="actor in lv.movieActors | filter: { person_type: 'ACTOR' }:true" class="card-text text-muted">
+                        {{actor.first_name}} {{actor.last_name}}
+                    </div>
                 </div>
-            </div>
 
-            <div>
-                <div id="movieDirector">
-                    <h5>Directed by:</h5>
-                    <div ng-repeat="actor in lv.movieActors | filter: { person_type: 'DIRECTOR' }:true" class="card-text text-muted">
-                        <a ui-sref="moviesByDirector({idperson: actor.idperson})" class="text-muted"> {{actor.first_name}} {{actor.last_name}} </a>
+                <div>
+                    <div id="movieDirector">
+                        <h5>Directed by:</h5>
+                        <div ng-repeat="actor in lv.movieActors | filter: { person_type: 'DIRECTOR' }:true" class="card-text text-muted">
+                            <a ui-sref="moviesByDirector({idperson: actor.idperson})" class="text-muted"> {{actor.first_name}} {{actor.last_name}} </a>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
     <div id="userReviewsLabel">
-            <h6  class="text-muted"><span style="padding:10px;">User reviews</span></h6>
-            <div id="userReviews">
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.
-                        
-                        Posted by Anonymous on 3/1/17</p>
+        <h6 class="text-muted"><span style="padding:10px;">User reviews</span> <button style="margin-left:500px;width:100px" ng-click="lv.prepForReview(rating)"
+                class="btn btn-default" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
+                aria-controls="collapseExample"> View </button></h6>
+
+        <div class="collapse" id="collapseExample">
+            <div class="userReviews" ng-repeat="review in lv.movieReviews">
+                <p style="padding:10px" class="text-muted">{{review.review}}</p>
+                <p style="padding:10px" class="text-muted"><b style="text-decoration:underline">Recommendation?</b> {{review.recommendation}}!</p>
+                <small style="padding:10px" class='text-muted'>Posted by: {{review.username}}</small>
             </div>
         </div>
+    </div>
 </div>
 
 

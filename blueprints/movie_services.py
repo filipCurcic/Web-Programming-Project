@@ -29,7 +29,7 @@ def movie(idmovie):
 def ratings():
 
     cursor = mysql.get_db().cursor()
-    cursor.execute("SELECT movie.vote_sum, movie.vote_amt, movie.title, movie.poster_path FROM movie ORDER BY movie.avg_vote DESC")
+    cursor.execute("SELECT * FROM movie ORDER BY movie.avg_vote DESC")
     rows = cursor.fetchall()
 
     return flask.jsonify(rows)
@@ -39,7 +39,7 @@ def ratings():
 def popular():
 
     cursor = mysql.get_db().cursor()
-    cursor.execute("SELECT movie.vote_count, movie.title, movie.poster_path, movie.avg_vote FROM movie ORDER BY movie.vote_count DESC")
+    cursor.execute("SELECT movie.vote_amt, movie.title FROM movie ORDER BY movie.vote_count DESC")
     rows = cursor.fetchall()
 
     return flask.jsonify(rows)
@@ -67,6 +67,15 @@ def moviesByDirector(idperson):
 
     cursor = mysql.get_db().cursor()
     cursor.execute("SELECT * from movie_person INNER JOIN movie ON movie_person.movie_idmovie = movie.idmovie INNER JOIN person ON movie_person.person_idperson = person.idperson WHERE person.idperson=%s ", (idperson, ))
+    rows = cursor.fetchall()
+
+    return flask.jsonify(rows)
+
+@movie_services.route("/movieReviews/<int:idmovie>", methods=["GET"])
+def movieReviews(idmovie):
+
+    cursor = mysql.get_db().cursor()
+    cursor.execute("SELECT * FROM user_reviews INNER JOIN movie ON user_reviews.movie_idmovie = movie.idmovie INNER JOIN user ON user_reviews.user_iduser = user.iduser WHERE movie_idmovie=%s", (idmovie, ))
     rows = cursor.fetchall()
 
     return flask.jsonify(rows)

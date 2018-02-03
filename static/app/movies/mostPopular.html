@@ -5,7 +5,6 @@
             <th class="text-muted">Rank</th>
             <th class="text-muted">Title</th>
             <th class="text-muted">Votes</th>
-            <th class="text-muted">Rating</th>
         
         </tr>
     </thead>
@@ -13,8 +12,8 @@
         <tr ng-repeat="rating in lv.pop track by $index">
             <td class="text-muted">{{$index +1}}.</td>
             <td class="text-muted"><a ui-sref="movie({idmovie: rating.idmovie})">{{rating.title}}</a></td>
-            <td class="text-muted">{{rating.vote_count}}</td>
-            <td class="text-muted">{{rating.avg_vote}}</td>
+            <td class="text-muted">{{rating.vote_amt}}</td>
+
         </tr>
     </tbody>
 </table>

@@ -1,0 +1,22 @@
+<table class="table table-striped table-hover tabelaRating">
+        <thead>
+            <tr>
+    
+                <th class="text-muted">Title</th>
+                <th class="text-muted">Your review</th>
+                <th class="text-muted">Recommendation</th>
+                
+    
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="review in lv.userReviews ">
+                <td> <img ng-src="images/{{review.poster_path}}" style="width:52px; height:72px;"><a class="text-muted" ui-sref="movie({idmovie: rating.idmovie})">  {{review.title}}</a>
+                </td>
+                <td><span class="text-muted"> {{review.review}} </span></td>
+                <td><span class="text-muted"> {{review.recommendation}} </span></td>
+                
+                
+            </tr>
+        </tbody>
+    </table>

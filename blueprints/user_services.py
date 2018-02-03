@@ -192,3 +192,37 @@ def change_profile():
     db.commit()
     print(data)
     return flask.jsonify({"status": "success"})
+
+
+@user_services.route("/movieReview/<int:idmovie>", methods=["POST"])
+def review_movie(idmovie):
+    db = mysql.get_db()
+    data = request.json
+    cursor = mysql.get_db().cursor()
+    user_id_review = session.get("user")["iduser"]
+
+    movie_review = data["review"]
+    movie_recommendation = data["recommendation"]
+
+
+    q = ''' INSERT INTO user_reviews(review, movie_idmovie, user_iduser, recommendation) VALUES(%s, %s, %s, %s) ''' 
+
+    cursor.execute(q, (movie_review, idmovie, user_id_review, movie_recommendation))
+
+    db.commit()
+
+    return flask.jsonify({'status': 'success'})
+
+@user_services.route("/userReviews", methods=["GET"])
+def user_reviews():
+    db = mysql.get_db()
+    data = request.json
+    cursor = mysql.get_db().cursor()
+    user_id_reviews = session.get("user")["iduser"]
+    
+    q = ''' SELECT * FROM user_reviews INNER JOIN movie ON user_reviews.movie_idmovie = movie.idmovie WHERE user_iduser=%s ''' 
+
+    cursor.execute(q, (user_id_reviews))
+    rows = cursor.fetchall()
+
+    return flask.jsonify(rows)

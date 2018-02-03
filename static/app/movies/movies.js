@@ -10,6 +10,7 @@
         lv.moviesGenres = [];
         lv.moviesDirectors = [];
         
+        
 
 
         lv.fetchMovies = function() {
@@ -54,6 +55,8 @@
                 console.log(reason);
             });
         }
+
+        
 
         
 

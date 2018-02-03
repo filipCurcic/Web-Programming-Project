@@ -99,6 +99,12 @@
             templateUrl: 'app/user_services/userRatings.html',
             controller: 'movieCtrl',
             controllerAs: 'lv'
+        }).state({
+            name: 'userReviews',
+            url: '/userReviews',
+            templateUrl: 'app/user_services/userReviews.html',
+            controller: 'movieCtrl',
+            controllerAs: 'lv'
         })
         
     }]);

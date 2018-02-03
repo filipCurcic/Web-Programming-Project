@@ -15,6 +15,13 @@
         lv.Add = {
             "movie_idmovie": lv.movieId,
         }  
+        lv.review = {
+            "review": "",
+            "recommendation": ""
+        }
+        lv.userReviews = [];
+        lv.movieReviews = [];
+        
 
         lv.ratingsByUser = [];
         lv.movieRatingByUser = [];
@@ -126,6 +133,45 @@
                 console.log(reason);
             })
         }
+
+        lv.prepForReview = function(rating) {
+            lv.toReview = angular.copy(rating);
+        }
+
+        lv.reviewMovie = function() {
+            $http.post("/movieReview/"+lv.toReview.idmovie, lv.review).then(function(response){
+                if(response.data["status"] == "success") {
+                    lv.ratings();
+                    lv.review = {};
+                    alert("You have succesfuly reviewed that movie!")
+                }
+                
+            },
+            function(reason){
+                
+                console.log(reason)
+            });
+        }
+
+        lv.getReviews = function() {
+            $http.get("/userReviews").then(function(response){
+                lv.userReviews = response.data ;
+            },
+            function(reason){
+                
+                console.log(reason)
+            });
+        }
+
+        lv.movieReviews = function() {
+            $http.get("/movieReviews/"+$stateParams.idmovie).then(function(response){
+                lv.movieReviews = response.data ;
+            },
+            function(reason){
+                
+                console.log(reason)
+            });
+        }
                 
 
         lv.getMovie();
@@ -133,5 +179,7 @@
         lv.fetchGenres();
         lv.ratings();
         lv.movieRating();
+        lv.getReviews();
+        lv.movieReviews();
     }]);
 })(angular);

@@ -18,6 +18,9 @@
             "person_idperson": "",
             "user_type": "User"
         }
+        lv.review = {
+            
+        }
 
 
         lv.registerUser = function() {
