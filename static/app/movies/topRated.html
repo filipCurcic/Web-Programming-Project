@@ -8,9 +8,9 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="rating in lv.ratings track by $index">
-            <td> <img ng-src="images/{{rating.poster_path}}" style="width:52px; height:72px;" >  <span class="text-muted">{{$index +1}}. <a class="text-muted" ui-sref="movie({idmovie: rating.idmovie})">{{rating.title}}</a></span></td>
-            <td> <img ng-src="images/str.ico" style="width:13px; height:13px"><span class="text-muted"> {{rating.vote_sum / rating.vote_amt}} </span> </td>
+        <tr ng-repeat="rating in lv.ratings | orderBy:'vote_sum/vote_amt':true">
+            <td> <img ng-src="images/{{rating.poster_path}}" style="width:52px; height:72px;"><span class="text-muted">{{$index +1}}. <a class="text-muted" ui-sref="movie({idmovie: rating.idmovie})">{{rating.title}}</a></span></td>
+            <td> <img ng-src="images/str.ico" style="width:13px; height:13px"><span class="text-muted"> {{rating.vote_sum / rating.vote_amt | limitTo: 3}} </span> </td>
         </tr>
     </tbody>
-</table>
+</table>    
